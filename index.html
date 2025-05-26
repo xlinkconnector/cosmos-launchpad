@@ -16,7 +16,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Cosmos Launchpad - Interchain Innovation">
     <meta name="twitter:description" content="Launch your blockchain projects with Cosmos Launchpad, powered by the Cosmos SDK and Interchain. Join now!">
-    <meta name="twitter:image" content="https://cosmoslaunchitivo.app.com/og-image.png">
+    <meta name="twitter:image" content="https://cosmoslaunchpad.com/og-image.png">
     <meta name="twitter:site" content="@cosmoslaunchpad">
     <link rel="canonical" href="https://cosmoslaunchpad.com">
     <link rel="icon" type="image/x-icon" href="/favicon.svg">
@@ -42,7 +42,7 @@
             width: 100%;
             height: 100%;
             z-index: -1;
-            opacity: 0.6; /* Increased opacity for visibility */
+            opacity: 0.4; /* Matches original opacity */
         }
         .container {
             max-width: 1200px;
@@ -144,7 +144,7 @@
             color: #A3BFFA;
         }
         form {
-            width: 800px; /* Set form width to 800px */
+            width: 800px; /* Fixed width as requested */
             margin: 0 auto;
             display: flex;
             flex-direction: column;
@@ -268,46 +268,63 @@
     </section>
     <footer>
         <p>© 2025 Cosmos Launchpad. Building the Interchain Future. | 
-            <a href="https://twitter.com/cosmoslaunchpad" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+ legislat: <a href="https://twitter.com/cosmoslaunchpad" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
             <a href="https://discord.com/invite/cosmosnetwork" target="_blank" rel="noopener noreferrer"><i class="fab fa-discord"></i></a>
         </p>
     </footer>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@3.5.0/tsparticles.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
     <script>
-        // tsParticles configuration
+        // tsParticles configuration (copied from original index.html)
         document.addEventListener('DOMContentLoaded', () => {
             if (window.tsParticles) {
-                tsParticles.load({
-                    id: 'tsparticles',
-                    options: {
-                        background: { color: { value: '#0A0A23' } },
-                        particles: {
-                            number: { value: 80, density: { enable: true, value_area: 800 } },
-                            color: { value: ['#00C4FF', '#7B61FF', '#FFFFFF'] },
-                            shape: { type: 'circle' },
-                            opacity: { value: 0.6, random: { enable: true, minimumValue: 0.3 } },
-                            size: { value: 3, random: { enable: true, minimumValue: 1 } },
-                            move: {
-                                enable: true,
-                                speed: 2,
-                                direction: 'none',
-                                random: true,
-                                straight: false,
-                                outModes: { default: 'bounce' }
-                            }
+                tsParticles.load('tsparticles', {
+                    background: { color: { value: '#0A0A23' } },
+                    particles: {
+                        number: { value: 60, density: { enable: true, value_area: 800 } },
+                        color: { value: ['#00C4FF', '#7B61FF', '#FFFFFF'] },
+                        shape: { 
+                            type: 'edge',
+                            stroke: { width: 1, color: '#00C4FF' }
                         },
-                        interactivity: {
-                            events: {
-                                onHover: { enable: true, mode: 'repulse' },
-                                onClick: { enable: true, mode: 'bubble' }
+                        opacity: { 
+                            value: 0.5, 
+                            random: { enable: true, minimumValue: 0.3 }
+                        },
+                        size: { 
+                            value: 3, 
+                            random: { enable: true, minimumValue: 1 }
+                        },
+                        move: {
+                            enable: true,
+                            speed: 4,
+                            direction: 'none',
+                            random: true,
+                            straight: false,
+                            out_mode: 'bounce',
+                            wobble: { enable: true, distance: 10, speed: 0.5 }
+                        },
+                        twinkle: {
+                            particles: { enable: true, frequency: 0.05, opacity: 0.8 }
+                        }
+                    },
+                    interactivity: {
+                        events: {
+                            onhover: { 
+                                enable: true, 
+                                mode: 'repulse', 
+                                distance: 120
                             },
-                            modes: {
-                                repulse: { distance: 100, duration: 0.4 },
-                                bubble: { distance: 150, size: 6, duration: 0.3 }
+                            onclick: { 
+                                enable: true, 
+                                mode: 'bubble'
                             }
                         },
-                        detectRetina: true
-                    }
+                        modes: {
+                            repulse: { distance: 150, duration: 0.3 },
+                            bubble: { distance: 200, size: 8, duration: 0.3, opacity: 0.9 }
+                        }
+                    },
+                    detectRetina: true
                 }).then(() => {
                     console.log('tsParticles loaded successfully');
                 }).catch(error => {
