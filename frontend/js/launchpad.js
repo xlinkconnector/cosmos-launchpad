@@ -11,7 +11,7 @@ class CosmosLaunchpad {
             return 'http://localhost:8080/api/v1';
         } else {
             // UPDATE THIS WITH YOUR ACTUAL RENDER URL
-            return 'https://YOUR-APP-NAME.onrender.com/api/v1';
+            return 'https://cosmos-launchpad.onrender.com/api/v1';
         }
     }
 
