@@ -174,7 +174,18 @@ initializeDatabase()
         app.locals.db = db;
         console.log('🎯 Database initialization complete');
         
-        // NOW setup the API routes (after database is ready)
+        // FIXED: Middleware to check database BEFORE processing deploy requests (moved inside promise)
+        app.use('/api/v1/deploy*', (req, res, next) => {
+            if (!app.locals.db) {
+                return res.status(503).json({
+                    error: 'Service unavailable',
+                    message: 'Database is still initializing, please try again in a few seconds'
+                });
+            }
+            next();
+        });
+        
+        // NOW setup the API routes (after database and middleware are ready)
         app.use('/api/v1', deployRoutes);
         
         // Admin stats endpoint
@@ -212,17 +223,6 @@ initializeDatabase()
         console.error('💥 FATAL: Database initialization failed:', err);
         process.exit(1);
     });
-
-// Middleware to check database before processing requests
-app.use('/api/v1/deploy*', (req, res, next) => {
-    if (!app.locals.db) {
-        return res.status(503).json({
-            error: 'Service unavailable',
-            message: 'Database is still initializing, please try again in a few seconds'
-        });
-    }
-    next();
-});
 
 // Global error handler
 app.use((err, req, res, next) => {
