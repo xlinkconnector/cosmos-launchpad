@@ -2,8 +2,17 @@ services:
   - type: web
     name: cosmos-launchpad-api
     env: node
-    buildCommand: npm install
-    startCommand: npm start
+    buildCommand: |
+      npm install
+      npm run init-db
+    startCommand: node server.js
+    plan: free
     envVars:
       - key: NODE_ENV
         value: production
+      - key: PORT
+        value: 3000
+    disk:
+      name: cosmos-db
+      mountPath: /opt/render/project/src/database
+      sizeGB: 1
