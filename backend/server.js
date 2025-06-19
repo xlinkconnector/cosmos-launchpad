@@ -151,6 +151,9 @@ app.get('/api/v1/db-status', (req, res) => {
             message: 'Database is still initializing, please wait...'
         });
     }
+
+    app.get('/api/v1/test', (req, res) => {
+    res.json({ message: 'Test route works!' });
     
     // Test database connection
     app.locals.db.get("SELECT COUNT(*) as count FROM deployments", (err, row) => {
