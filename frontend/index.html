@@ -23,38 +23,101 @@
         body {
             position: relative;
         }
+        
+        /* Cosmic Particles Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        /* Shooting Stars */
+        .shooting-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #00C4FF;
+        }
+        
+        .star::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #00C4FF, transparent);
+            animation: shooting 3s linear infinite;
+        }
+        
+        @keyframes shooting {
+            0% {
+                transform: translateY(-50%) translateX(-300px);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-50%) translateX(100vw);
+                opacity: 0;
+            }
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             width: 100%;
             overflow-x: hidden;
+            position: relative;
+            z-index: 1;
         }
+        
         .hero {
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            background: linear-gradient(45deg, #1C2526, #2E3B55);
+            background: linear-gradient(45deg, rgba(28, 37, 38, 0.8), rgba(46, 59, 85, 0.8));
             position: relative;
+            backdrop-filter: blur(5px);
         }
+        
         .hero-content h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
             font-weight: 900;
             color: #00C4FF;
-            text-shadow: 0 0 15px #00C4FF;
+            text-shadow: 0 0 30px #00C4FF, 0 0 60px rgba(0, 196, 255, 0.5);
             animation: glow 2s ease-in-out infinite alternate;
             margin-bottom: 20px;
         }
+        
         .hero-subtitle {
             font-size: 1.8rem;
             color: #00FF88;
             font-weight: 700;
             margin-bottom: 15px;
-            text-shadow: 0 0 10px #00FF88;
+            text-shadow: 0 0 20px #00FF88;
         }
+        
         .hero-content p {
             font-size: 1.3rem;
             color: #A3BFFA;
@@ -62,6 +125,7 @@
             margin: 0 auto 40px;
             line-height: 1.6;
         }
+        
         .stats-highlight {
             display: flex;
             justify-content: center;
@@ -69,22 +133,32 @@
             margin: 40px 0;
             flex-wrap: wrap;
         }
+        
         .stat-item {
             text-align: center;
+            background: rgba(0, 196, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 196, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
+        
         .stat-number {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
             font-weight: 900;
             color: #00FF88;
             display: block;
+            text-shadow: 0 0 15px #00FF88;
         }
+        
         .stat-label {
             font-size: 0.9rem;
             color: #A3BFFA;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+        
         .cta-button {
             background: linear-gradient(45deg, #00FF88, #00CC66);
             color: #FFFFFF;
@@ -95,26 +169,32 @@
             font-weight: 700;
             font-size: 1.3rem;
             cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: inline-block;
             margin: 10px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
         }
+        
         .cta-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 25px #00FF88;
+            transform: scale(1.05) translateY(-2px);
+            box-shadow: 0 0 40px rgba(0, 255, 136, 0.6);
         }
+        
         .cta-secondary {
             background: rgba(0, 196, 255, 0.1);
             border: 2px solid #00C4FF;
             color: #00C4FF;
+            box-shadow: 0 0 20px rgba(0, 196, 255, 0.3);
         }
+        
         .cta-secondary:hover {
             background: rgba(0, 196, 255, 0.2);
-            box-shadow: 0 0 25px rgba(0, 196, 255, 0.5);
+            box-shadow: 0 0 40px rgba(0, 196, 255, 0.6);
         }
+        
         nav {
-            background: rgba(44, 62, 80, 0.95);
+            background: rgba(28, 37, 38, 0.95);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -122,7 +202,9 @@
             backdrop-filter: blur(15px);
             width: 100%;
             overflow-x: hidden;
+            border-bottom: 1px solid rgba(0, 196, 255, 0.2);
         }
+        
         nav ul {
             list-style: none;
             display: flex;
@@ -134,6 +216,7 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
+        
         nav ul li a {
             font-family: 'Orbitron', sans-serif;
             color: #00C4FF;
@@ -144,13 +227,16 @@
             border-radius: 25px;
             white-space: nowrap;
         }
+        
         nav ul li a:hover {
             color: #FFFFFF;
             background: rgba(0, 196, 255, 0.1);
             text-shadow: 0 0 10px #00C4FF;
+            transform: translateY(-2px);
         }
+        
         .free-plan-section {
-            background: linear-gradient(135deg, #1C2526, #2E3B55);
+            background: rgba(28, 37, 38, 0.8);
             border-radius: 20px;
             padding: 50px;
             margin: 60px 0;
@@ -160,7 +246,10 @@
             max-width: 100%;
             box-sizing: border-box;
             overflow-x: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.2);
         }
+        
         .free-plan-card {
             background: rgba(0, 255, 136, 0.1);
             border: 2px solid #00FF88;
@@ -169,7 +258,9 @@
             max-width: 600px;
             margin: 0 auto;
             box-shadow: 0 0 30px rgba(0, 255, 136, 0.3);
+            backdrop-filter: blur(10px);
         }
+        
         .plan-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.5rem;
@@ -177,18 +268,22 @@
             margin-bottom: 20px;
             text-shadow: 0 0 15px #00FF88;
         }
+        
         .plan-price {
             font-family: 'Orbitron', sans-serif;
             font-size: 4rem;
             font-weight: 900;
             color: #00FF88;
             margin: 20px 0;
+            text-shadow: 0 0 20px #00FF88;
         }
+        
         .plan-features {
             list-style: none;
             text-align: left;
             margin: 30px 0;
         }
+        
         .plan-features li {
             color: #A3BFFA;
             margin: 15px 0;
@@ -196,63 +291,168 @@
             display: flex;
             align-items: center;
         }
+        
         .plan-features li i {
             color: #00FF88;
             margin-right: 15px;
             width: 20px;
             font-size: 1.2rem;
         }
-        .custom-services {
-            background: linear-gradient(135deg, #2E3B55, #1C2526);
+        
+        /* Premium Modules Section */
+        .premium-modules {
+            background: rgba(46, 59, 85, 0.8);
             border-radius: 20px;
-            padding: 50px;
-            margin: 60px 0;
+            padding: 60px 40px;
+            margin: 80px 0;
             border: 2px solid #00C4FF;
             text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0, 196, 255, 0.2);
         }
-        .custom-services h2 {
+        
+        .premium-modules h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: #00C4FF;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px #00C4FF;
+        }
+        
+        .premium-subtitle {
+            font-size: 1.3rem;
+            color: #A3BFFA;
+            margin-bottom: 50px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .module-categories {
+            display: grid;
+            gap: 50px;
+            margin: 60px 0;
+        }
+        
+        .category {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .category-header {
+            text-align: center;
             margin-bottom: 30px;
+        }
+        
+        .category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #00C4FF, #7B61FF, #FF6B9D);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .category-description {
+            color: #A3BFFA;
+            font-size: 1.1rem;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .module-card {
+            background: linear-gradient(135deg, rgba(0, 196, 255, 0.1), rgba(123, 97, 255, 0.1));
+            border: 1px solid rgba(0, 196, 255, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .module-card:hover::before {
+            left: 100%;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-5px);
+            border-color: #00C4FF;
+            box-shadow: 0 10px 30px rgba(0, 196, 255, 0.3);
+        }
+        
+        .module-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #00C4FF;
             text-shadow: 0 0 15px #00C4FF;
         }
-        .custom-services p {
-            font-size: 1.2rem;
-            color: #A3BFFA;
-            margin-bottom: 40px;
-            line-height: 1.6;
-        }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin: 40px 0;
-        }
-        .service-item {
-            background: rgba(0, 196, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 196, 255, 0.3);
-        }
-        .service-item h4 {
+        
+        .module-name {
             font-family: 'Orbitron', sans-serif;
-            color: #00C4FF;
-            margin-bottom: 15px;
             font-size: 1.3rem;
+            color: #FFFFFF;
+            margin-bottom: 15px;
+            font-weight: 700;
         }
-        .service-item p {
+        
+        .module-description {
             color: #A3BFFA;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.5;
+            margin-bottom: 20px;
         }
+        
+        .module-cta {
+            background: linear-gradient(45deg, #00C4FF, #7B61FF);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.9rem;
+        }
+        
+        .module-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 196, 255, 0.4);
+        }
+        
         .deploy-section {
-            background: linear-gradient(135deg, #1C2526, #2E3B55);
+            background: rgba(28, 37, 38, 0.8);
             border-radius: 20px;
             padding: 50px;
             margin: 60px 0;
             border: 1px solid rgba(0, 196, 255, 0.3);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 196, 255, 0.1);
         }
+        
         .deploy-form {
             max-width: 600px;
             margin: 0 auto;
@@ -260,10 +460,12 @@
             width: 100%;
             overflow-x: hidden;
         }
+        
         .form-group {
             margin-bottom: 25px;
             width: 100%;
         }
+        
         .form-group label {
             font-family: 'Orbitron', sans-serif;
             color: #00C4FF;
@@ -271,6 +473,7 @@
             display: block;
             margin-bottom: 8px;
         }
+        
         .form-group input, .form-group textarea {
             width: 100%;
             max-width: 100%;
@@ -281,28 +484,35 @@
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
             box-sizing: border-box;
+            backdrop-filter: blur(10px);
         }
+        
         .form-group input:focus, .form-group textarea:focus {
             outline: none;
             border-color: #00C4FF;
-            box-shadow: 0 0 10px rgba(0, 196, 255, 0.3);
+            box-shadow: 0 0 15px rgba(0, 196, 255, 0.3);
         }
+        
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
             width: 100%;
         }
+        
         .deployment-status {
-            background: linear-gradient(135deg, #1C2526, #2E3B55);
+            background: rgba(28, 37, 38, 0.8);
             border: 2px solid #00C4FF;
             border-radius: 20px;
             padding: 30px;
             margin: 20px 0;
             display: none;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 30px rgba(0, 196, 255, 0.2);
         }
+        
         .status-bar {
             background: rgba(0, 196, 255, 0.2);
             height: 8px;
@@ -310,13 +520,16 @@
             overflow: hidden;
             margin: 15px 0;
         }
+        
         .status-progress {
             background: linear-gradient(45deg, #00C4FF, #7B61FF);
             height: 100%;
             border-radius: 4px;
             transition: width 0.3s ease;
             width: 0%;
+            box-shadow: 0 0 10px rgba(0, 196, 255, 0.5);
         }
+        
         .terminal-preview {
             background: #1e1e1e;
             border-radius: 10px;
@@ -330,35 +543,63 @@
             white-space: pre-wrap;
             max-width: 100%;
             box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
         }
+        
         .terminal-line {
             margin: 5px 0;
             word-break: break-all;
             overflow-wrap: break-word;
         }
+        
         .terminal-prompt {
             color: #00C4FF;
         }
+        
         .alert {
             padding: 15px 20px;
             border-radius: 10px;
             margin: 15px 0;
             font-weight: 600;
+            backdrop-filter: blur(10px);
         }
+        
         .alert-success {
             background: rgba(0, 255, 136, 0.1);
             border: 1px solid #00FF88;
             color: #00FF88;
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
         }
+        
         .alert-error {
             background: rgba(255, 71, 87, 0.1);
             border: 1px solid #FF4757;
             color: #FF4757;
+            box-shadow: 0 0 15px rgba(255, 71, 87, 0.2);
         }
+        
         @keyframes glow {
-            from { text-shadow: 0 0 10px #00C4FF; }
-            to { text-shadow: 0 0 20px #00C4FF; }
+            from { text-shadow: 0 0 20px #00C4FF, 0 0 40px rgba(0, 196, 255, 0.5); }
+            to { text-shadow: 0 0 30px #00C4FF, 0 0 60px rgba(0, 196, 255, 0.8); }
         }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .module-card {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .module-card:nth-child(2n) {
+            animation-delay: -2s;
+        }
+        
+        .module-card:nth-child(3n) {
+            animation-delay: -4s;
+        }
+        
         @media (max-width: 768px) {
             .hero-content h1 { 
                 font-size: 2.5rem; 
@@ -406,26 +647,43 @@
                 font-size: 0.9rem;
                 padding: 8px 12px;
             }
-            .free-plan-section, .custom-services, .deploy-section {
+            .free-plan-section, .premium-modules, .deploy-section {
                 padding: 30px 20px;
                 margin: 30px 0;
             }
             .free-plan-card {
                 padding: 30px 20px;
             }
-            .services-grid {
+            .modules-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
+            }
+            .premium-modules h2 {
+                font-size: 2rem;
+            }
+            .category-title {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Cosmic Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Shooting Stars -->
+    <div class="shooting-stars">
+        <div class="star" style="top: 20%; left: -50px; animation-delay: 0s;"></div>
+        <div class="star" style="top: 40%; left: -50px; animation-delay: 2s;"></div>
+        <div class="star" style="top: 60%; left: -50px; animation-delay: 4s;"></div>
+        <div class="star" style="top: 80%; left: -50px; animation-delay: 6s;"></div>
+    </div>
+
     <nav>
         <ul>
-            <li><a href="#" class="nav-logo">Cosmos Launchpad</a></li>
+            <li><a href="#" class="nav-logo">⚡ Cosmos Launchpad</a></li>
             <li><a href="#deploy">Deploy FREE</a></li>
-            <li><a href="#services">Custom Services</a></li>
+            <li><a href="#modules">Premium Modules</a></li>
             <li><a href="mailto:hello@cosmoslaunchpad.com">Contact</a></li>
         </ul>
     </nav>
@@ -434,7 +692,7 @@
         <div class="hero-content">
             <h1>Cosmos Launchpad</h1>
             <div class="hero-subtitle">Deploy Your FREE Blockchain in 60 Seconds</div>
-            <p>Get a production-ready Cosmos SDK blockchain deployed to your VPS instantly. No coding required, complete ownership, zero cost. Professional custom services available.</p>
+            <p>Get a production-ready Cosmos SDK blockchain deployed to your VPS instantly. No coding required, complete ownership, zero cost. Professional custom modules available.</p>
             
             <div class="stats-highlight">
                 <div class="stat-item">
@@ -450,14 +708,14 @@
                     <span class="stat-label">Your Ownership</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">24/7</span>
-                    <span class="stat-label">Live & Running</span>
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">Custom Modules</span>
                 </div>
             </div>
             
             <div>
                 <a href="#deploy" class="cta-button">Deploy FREE Now</a>
-                <a href="#services" class="cta-button cta-secondary">Custom Services</a>
+                <a href="#modules" class="cta-button cta-secondary">Explore Premium Modules</a>
             </div>
         </div>
     </section>
@@ -494,42 +752,164 @@
         </div>
     </section>
 
-    <section id="services" class="container">
-        <div class="custom-services">
-            <h2>Need More? We Build Custom Solutions</h2>
-            <p>Want professional features, custom modules, or enterprise-grade deployment? Our team builds exactly what you need.</p>
+    <!-- Premium Modules Section -->
+    <section id="modules" class="container">
+        <div class="premium-modules">
+            <h2>🚀 Premium Blockchain Modules</h2>
+            <p class="premium-subtitle">
+                Transform your blockchain with our battle-tested custom modules. Built for enterprise applications, ready for immediate integration.
+            </p>
             
-            <div class="services-grid">
-                <div class="service-item">
-                    <h4>🎨 Professional Branding</h4>
-                    <p>Custom domain setup, SSL certificates, branded block explorer, and professional monitoring dashboards.</p>
+            <div class="module-categories">
+                
+                <!-- Creator Economy Suite -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">🎨 Creator Economy Suite</h3>
+                        <p class="category-description">Complete infrastructure for content creators, digital artists, and creative platforms</p>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">✨</div>
+                            <h4 class="module-name">ContentCreator</h4>
+                            <p class="module-description">Advanced content management with version control, collaboration tools, and automated publishing workflows for creators.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=ContentCreator Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">📝</div>
+                            <h4 class="module-name">Blog</h4>
+                            <p class="module-description">Decentralized blogging platform with immutable posts, reputation systems, and monetization features built-in.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=Blog Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">💰</div>
+                            <h4 class="module-name">RoyaltyManagement</h4>
+                            <p class="module-description">Automated royalty distribution system with smart contracts, multi-party splits, and transparent accounting.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=RoyaltyManagement Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">🏆</div>
+                            <h4 class="module-name">RewardsSystem</h4>
+                            <p class="module-description">Comprehensive reward mechanism with points, badges, achievements, and configurable incentive structures.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=RewardsSystem Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>⚙️ Custom Modules</h4>
-                    <p>Build unique blockchain functionality tailored to your specific business requirements and use cases.</p>
+                
+                <!-- NFT/Marketplace Suite -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">💎 NFT & Marketplace Suite</h3>
+                        <p class="category-description">Complete NFT infrastructure with marketplace, auctions, and digital asset management</p>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">🛒</div>
+                            <h4 class="module-name">NFTMarketplace</h4>
+                            <p class="module-description">Full-featured NFT marketplace with advanced search, filtering, collections, and integrated payment systems.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=NFTMarketplace Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">💎</div>
+                            <h4 class="module-name">DigitalAssets</h4>
+                            <p class="module-description">Advanced digital asset management with metadata handling, IPFS integration, and multi-format support.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=DigitalAssets Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">🔨</div>
+                            <h4 class="module-name">AuctionHouse</h4>
+                            <p class="module-description">Sophisticated auction platform with English, Dutch, and sealed-bid auction types plus automatic settlement.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=AuctionHouse Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>🏢 Enterprise Deployment</h4>
-                    <p>Multi-node networks, high availability setup, advanced security, and white-label solutions.</p>
+                
+                <!-- Social Platform Suite -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">📱 Social Platform Suite</h3>
+                        <p class="category-description">Build the next generation of decentralized social networks and communities</p>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">👥</div>
+                            <h4 class="module-name">SocialMedia</h4>
+                            <p class="module-description">Complete social media infrastructure with posts, comments, likes, shares, and algorithmic feeds.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=SocialMedia Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">👤</div>
+                            <h4 class="module-name">UserProfiles</h4>
+                            <p class="module-description">Rich user profile system with customizable fields, privacy controls, and decentralized identity integration.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=UserProfiles Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">💬</div>
+                            <h4 class="module-name">Messaging</h4>
+                            <p class="module-description">Secure end-to-end encrypted messaging with group chats, file sharing, and real-time delivery.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=Messaging Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">📰</div>
+                            <h4 class="module-name">NewsFeed</h4>
+                            <p class="module-description">Intelligent news feed with customizable algorithms, trending topics, and content curation tools.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=NewsFeed Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>🔗 IBC Integration</h4>
-                    <p>Connect to the Cosmos ecosystem with full Inter-Blockchain Communication setup and relayer management.</p>
+                
+                <!-- Energy Trading Suite -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">⚡ Energy Trading Suite</h3>
+                        <p class="category-description">Revolutionary blockchain solutions for energy markets and sustainability</p>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">⚡</div>
+                            <h4 class="module-name">EnergyTrading</h4>
+                            <p class="module-description">Peer-to-peer energy trading platform with smart contracts, automated settlements, and grid integration.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=EnergyTrading Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">🔋</div>
+                            <h4 class="module-name">WattManagement</h4>
+                            <p class="module-description">Comprehensive energy management with consumption tracking, efficiency analytics, and carbon footprint monitoring.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=WattManagement Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>💰 Token Economics</h4>
-                    <p>Design sustainable economic models, governance parameters, and incentive mechanisms for your blockchain.</p>
+                
+                <!-- Infrastructure Suite -->
+                <div class="category">
+                    <div class="category-header">
+                        <h3 class="category-title">🏗️ Infrastructure Suite</h3>
+                        <p class="category-description">Essential blockchain infrastructure modules for any enterprise application</p>
+                    </div>
+                    <div class="modules-grid">
+                        <div class="module-card">
+                            <div class="module-icon">⭐</div>
+                            <h4 class="module-name">Reputation</h4>
+                            <p class="module-description">Advanced reputation system with weighted scoring, peer reviews, and fraud detection mechanisms.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=Reputation Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">🔒</div>
+                            <h4 class="module-name">Escrow</h4>
+                            <p class="module-description">Secure escrow system with multi-signature support, dispute resolution, and automated release conditions.</p>
+                            <a href="mailto:hello@cosmoslaunchpad.com?subject=Escrow Module" class="module-cta">Get Integration Quote</a>
+                        </div>
+                    </div>
                 </div>
-                <div class="service-item">
-                    <h4>🎯 Dedicated Support</h4>
-                    <p>Priority support, dedicated blockchain architect, ongoing maintenance, and 24/7 monitoring.</p>
-                </div>
+                
             </div>
             
-            <div style="margin-top: 50px;">
-                <p style="font-size: 1.1rem; margin-bottom: 30px;">Ready to discuss your custom blockchain project?</p>
-                <a href="mailto:hello@cosmoslaunchpad.com?subject=Custom Blockchain Services" class="cta-button" style="background: linear-gradient(45deg, #00C4FF, #7B61FF);">
-                    📧 Email Us for Custom Quote
+            <div style="margin-top: 60px; text-align: center;">
+                <p style="font-size: 1.2rem; margin-bottom: 30px; color: #A3BFFA;">
+                    Ready to integrate custom modules into your blockchain?
+                </p>
+                <a href="mailto:hello@cosmoslaunchpad.com?subject=Custom Module Integration" class="cta-button" style="background: linear-gradient(45deg, #00C4FF, #7B61FF); font-size: 1.2rem; padding: 20px 40px;">
+                    🚀 Discuss Custom Integration
                 </a>
             </div>
         </div>
@@ -608,7 +988,117 @@ Your private key here...
         </div>
     </section>
 
+    <!-- Particles.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    
     <script>
+        // =================================
+        // COSMIC PARTICLES CONFIGURATION
+        // =================================
+        
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 80,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: ["#00C4FF", "#7B61FF", "#FF6B9D", "#FFD93D"]
+                },
+                shape: {
+                    type: "circle",
+                    stroke: {
+                        width: 0,
+                        color: "#000000"
+                    }
+                },
+                opacity: {
+                    value: 0.5,
+                    random: false,
+                    anim: {
+                        enable: false,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: false,
+                        speed: 40,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#00C4FF",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 6,
+                    direction: "none",
+                    random: false,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false,
+                    attract: {
+                        enable: false,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: "repulse"
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: "push"
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 400,
+                        line_linked: {
+                            opacity: 1
+                        }
+                    },
+                    bubble: {
+                        distance: 400,
+                        size: 40,
+                        duration: 2,
+                        opacity: 8,
+                        speed: 3
+                    },
+                    repulse: {
+                        distance: 200,
+                        duration: 0.4
+                    },
+                    push: {
+                        particles_nb: 4
+                    },
+                    remove: {
+                        particles_nb: 2
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
         // =================================
         // SIMPLIFIED COSMOS LAUNCHPAD JS
         // =================================
@@ -625,7 +1115,7 @@ Your private key here...
                 if (window.location.hostname === 'localhost') {
                     return 'http://localhost:8080/api/v1';
                 } else {
-                    return 'https://api.cosmoslaunchpad.com/api/v1';
+                    return 'https://cosmos-launchpad.onrender.com/api/v1';
                 }
             }
 
@@ -822,12 +1312,8 @@ Your private key here...
 
                 const statusInfo = {
                     'QUEUED': { message: 'Deployment queued...', progress: 10 },
-                    'CONNECTING': { message: 'Connecting to your VPS...', progress: 20 },
-                    'INSTALLING': { message: 'Installing dependencies...', progress: 30 },
-                    'SCAFFOLDING': { message: 'Generating blockchain code...', progress: 50 },
-                    'BUILDING': { message: 'Building blockchain...', progress: 70 },
-                    'STARTING': { message: 'Starting blockchain services...', progress: 85 },
-                    'VERIFYING': { message: 'Verifying deployment...', progress: 95 },
+                    'INSTALLING': { message: 'Installing dependencies...', progress: 40 },
+                    'DEPLOYING': { message: 'Creating blockchain...', progress: 70 },
                     'COMPLETED': { message: 'Deployment complete!', progress: 100 },
                     'FAILED': { message: 'Deployment failed', progress: 0 }
                 };
@@ -835,7 +1321,7 @@ Your private key here...
                 const info = statusInfo[status.status] || statusInfo['QUEUED'];
                 
                 if (statusMessage) {
-                    statusMessage.textContent = info.message;
+                    statusMessage.textContent = status.message || info.message;
                 }
                 
                 if (statusProgress) {
@@ -850,17 +1336,15 @@ Your private key here...
                 if (!terminal) return;
 
                 const commands = {
-                    'CONNECTING': ['ssh root@' + (document.getElementById('vpsIP')?.value || 'your-vps'), 'Connected successfully!'],
-                    'SCAFFOLDING': ['ignite scaffold chain ' + (document.getElementById('chainName')?.value || 'your-chain'), '✨ Creating blockchain...'],
-                    'BUILDING': ['ignite chain build', '🔨 Building...'],
-                    'STARTING': ['ignite chain serve', '🚀 Starting blockchain...'],
+                    'INSTALLING': ['Installing Go, Ignite CLI, buf...', '✨ Dependencies ready!'],
+                    'DEPLOYING': ['ignite scaffold chain ' + (document.getElementById('chainName')?.value || 'your-chain'), '🚀 Starting blockchain...'],
                     'COMPLETED': ['', '✅ FREE blockchain is live!']
                 };
 
                 if (commands[status]) {
                     const [command, output] = commands[status];
                     if (command) {
-                        terminal.innerHTML += `\n<div class="terminal-line"><span class="terminal-prompt">root@vps:~$</span> ${command}</div>`;
+                        terminal.innerHTML += `\n<div class="terminal-line">${command}</div>`;
                     }
                     if (output) {
                         terminal.innerHTML += `\n<div class="terminal-line">${output}</div>`;
