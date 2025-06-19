@@ -4,7 +4,7 @@
   "description": "Backend API for Cosmos Launchpad BaaS platform with VPS auto-installer",
   "main": "server.js",
   "scripts": {
-    "start": "npm run init-db && node server.js",
+    "start": "node server.js",
     "dev": "npm run init-db && nodemon server.js",
     "init-db": "node scripts/simple-init-db.js",
     "test": "node scripts/test-deployment.js"
