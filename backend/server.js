@@ -1,7 +1,7 @@
 // /backend/server.js - FIXED VERSION
 const express = require('express');
 const cors = require('cors');
-const rateLimit = require('express-rate-limit');
+// const rateLimit = require('express-rate-limit'); // COMMENTED OUT TEMPORARILY
 const helmet = require('helmet');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
@@ -15,8 +15,8 @@ const deployRoutes = require('./routes/deploy');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// FIXED: Trust proxy for Render.com
 app.set('trust proxy', true);
-
 
 // Security middleware
 app.use(helmet());
@@ -38,18 +38,18 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true }));
 
-// Rate limiting
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // limit each IP to 5 deployments per 15 minutes
-    message: {
-        error: 'Too many deployment requests. Please try again later.',
-        retryAfter: '15 minutes'
-    }
-});
+// Rate limiting - DISABLED TEMPORARILY FOR DEBUGGING
+// const limiter = rateLimit({
+//     windowMs: 15 * 60 * 1000, // 15 minutes
+//     max: 5, // limit each IP to 5 deployments per 15 minutes
+//     message: {
+//         error: 'Too many deployment requests. Please try again later.',
+//         retryAfter: '15 minutes'
+//     }
+// });
 
-// Apply rate limiting to deployment endpoints
-app.use('/api/v1/deploy', limiter);
+// Apply rate limiting to deployment endpoints - COMMENTED OUT
+// app.use('/api/v1/deploy', limiter);
 
 // FIXED: Database initialization with proper error handling
 async function initializeDatabase() {
