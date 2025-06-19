@@ -1,0 +1,5 @@
+# API proxying to backend - UPDATE WITH YOUR RENDER URL
+/api/* https://YOUR-APP-NAME.onrender.com/api/:splat 200
+
+# SPA fallback
+/* /index.html 200
