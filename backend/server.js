@@ -1,21 +1,15 @@
-// /backend/server.js - FIXED VERSION
+// /backend/server.js - COMPLETE WORKING VERSION
 const express = require('express');
 const cors = require('cors');
-// const rateLimit = require('express-rate-limit'); // COMMENTED OUT TEMPORARILY
 const helmet = require('helmet');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
-const { v4: uuidv4 } = require('uuid');
-
-// Import our custom modules
-const { DeploymentManager } = require('./utils/deployment-manager');
-const deployRoutes = require('./routes/deploy');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// FIXED: Trust proxy for Render.com
+// Trust proxy for deployment platforms
 app.set('trust proxy', true);
 
 // Security middleware
@@ -26,222 +20,182 @@ app.use(cors({
     origin: [
         'https://cosmoslaunchpad.com',
         'https://www.cosmoslaunchpad.com',
-        'https://yoursite.netlify.app',
+        'https://cosmos-launchpad.netlify.app',
         'http://localhost:3000',
         'http://localhost:8080'
     ],
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
 // Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Rate limiting - DISABLED TEMPORARILY FOR DEBUGGING
-// const limiter = rateLimit({
-//     windowMs: 15 * 60 * 1000, // 15 minutes
-//     max: 5, // limit each IP to 5 deployments per 15 minutes
-//     message: {
-//         error: 'Too many deployment requests. Please try again later.',
-//         retryAfter: '15 minutes'
-//     }
-// });
+// Import routes
+const deployRoutes = require('./routes/deploy');
 
-// Apply rate limiting to deployment endpoints - COMMENTED OUT
-// app.use('/api/v1/deploy', limiter);
-
-// FIXED: Database initialization with proper error handling
+// Database initialization function
 async function initializeDatabase() {
     return new Promise((resolve, reject) => {
-        try {
-            // Ensure database directory exists
-            const dbDir = path.join(__dirname, 'database');
-            if (!fs.existsSync(dbDir)) {
-                fs.mkdirSync(dbDir, { recursive: true });
-                console.log('✅ Created database directory');
-            }
-
-            const dbPath = path.join(dbDir, 'deployments.db');
-            console.log('📁 Database path:', dbPath);
-
-            const db = new sqlite3.Database(dbPath, (err) => {
-                if (err) {
-                    console.error('❌ Database connection failed:', err.message);
-                    reject(err);
-                } else {
-                    console.log('✅ Connected to SQLite database');
-                    
-                    // Create deployments table
-                    db.run(`
-                        CREATE TABLE IF NOT EXISTS deployments (
-                            id TEXT PRIMARY KEY,
-                            chain_name TEXT NOT NULL,
-                            vps_ip TEXT NOT NULL,
-                            ssh_user TEXT NOT NULL,
-                            ssh_port INTEGER DEFAULT 22,
-                            contact_email TEXT NOT NULL,
-                            status TEXT DEFAULT 'QUEUED',
-                            rpc_endpoint TEXT,
-                            api_endpoint TEXT,
-                            error_message TEXT,
-                            installation_log TEXT,
-                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                            updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                        )
-                    `, (err) => {
-                        if (err) {
-                            console.error('❌ Failed to create deployments table:', err.message);
-                            reject(err);
-                        } else {
-                            console.log('✅ Deployments table ready');
-                            
-                            // Create indexes
-                            db.run(`CREATE INDEX IF NOT EXISTS idx_deployments_status ON deployments(status)`, (err) => {
-                                if (err) console.error('⚠️ Index creation warning:', err.message);
-                            });
-                            
-                            db.run(`CREATE INDEX IF NOT EXISTS idx_deployments_created_at ON deployments(created_at)`, (err) => {
-                                if (err) console.error('⚠️ Index creation warning:', err.message);
-                            });
-                            
-                            db.run(`CREATE INDEX IF NOT EXISTS idx_deployments_chain_name ON deployments(chain_name)`, (err) => {
-                                if (err) console.error('⚠️ Index creation warning:', err.message);
-                            });
-                            
-                            // Test the table
-                            db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='deployments'", (err, row) => {
-                                if (err) {
-                                    console.error('❌ Table verification failed:', err.message);
-                                    reject(err);
-                                } else if (row) {
-                                    console.log('✅ Table verification successful');
-                                    resolve(db);
-                                } else {
-                                    console.error('❌ Table was not created');
-                                    reject(new Error('Table creation failed'));
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        } catch (error) {
-            console.error('❌ Database initialization error:', error);
-            reject(error);
+        // Ensure database directory exists
+        const dbDir = path.join(__dirname, 'database');
+        if (!fs.existsSync(dbDir)) {
+            fs.mkdirSync(dbDir, { recursive: true });
         }
+
+        const dbPath = path.join(dbDir, 'deployments.db');
+        console.log(`📁 Database path: ${dbPath}`);
+
+        const db = new sqlite3.Database(dbPath, (err) => {
+            if (err) {
+                console.error('❌ SQLite connection error:', err);
+                reject(err);
+                return;
+            }
+            console.log('✅ Connected to SQLite database');
+        });
+
+        // Create deployments table
+        db.run(`
+            CREATE TABLE IF NOT EXISTS deployments (
+                id TEXT PRIMARY KEY,
+                chain_name TEXT NOT NULL,
+                vps_host TEXT NOT NULL,
+                vps_username TEXT NOT NULL,
+                status TEXT NOT NULL DEFAULT 'PENDING',
+                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                rpc_endpoint TEXT,
+                api_endpoint TEXT,
+                error_message TEXT,
+                deployment_logs TEXT
+            )
+        `, (err) => {
+            if (err) {
+                console.error('❌ Table creation error:', err);
+                reject(err);
+                return;
+            }
+            console.log('✅ Deployments table ready');
+        });
+
+        // Verify table exists
+        db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='deployments'", (err, row) => {
+            if (err) {
+                console.error('❌ Table verification error:', err);
+                reject(err);
+                return;
+            }
+            
+            if (row) {
+                console.log('✅ Table verification successful');
+                console.log('🎯 Database initialization complete');
+                resolve(db);
+            } else {
+                const error = new Error('Deployments table not found after creation');
+                console.error('❌ Table verification failed:', error);
+                reject(error);
+            }
+        });
     });
 }
 
-// Health check endpoint (available immediately)
+// Health check endpoint (outside database dependency)
 app.get('/api/v1/health', (req, res) => {
-    res.json({
+    const health = {
         status: 'healthy',
         timestamp: new Date().toISOString(),
-        version: '1.0.0',
-        database: app.locals.db ? 'connected' : 'initializing'
-    });
+        version: '1.0.0'
+    };
+    
+    if (app.locals.db) {
+        health.database = 'connected';
+    } else {
+        health.database = 'disconnected';
+    }
+    
+    res.json(health);
 });
 
-// Database initialization status endpoint
+// Database status endpoint (outside database dependency)
 app.get('/api/v1/db-status', (req, res) => {
     if (!app.locals.db) {
         return res.status(503).json({
-            status: 'initializing',
-            message: 'Database is still initializing, please wait...'
+            status: 'error',
+            message: 'Database not initialized'
         });
     }
-    
-    // Test database connection
-    app.locals.db.get("SELECT COUNT(*) as count FROM deployments", (err, row) => {
+
+    app.locals.db.get('SELECT COUNT(*) as count FROM deployments', (err, row) => {
         if (err) {
-            res.status(500).json({
+            return res.status(500).json({
                 status: 'error',
-                message: 'Database connection failed',
+                message: 'Database query failed',
                 error: err.message
             });
-        } else {
-            res.json({
-                status: 'ready',
-                message: 'Database is ready',
-                total_deployments: row.count
-            });
         }
+
+        res.json({
+            status: 'ready',
+            message: 'Database is ready',
+            total_deployments: row.count
+        });
     });
 });
 
-app.get('/api/v1/test', (req, res) => {
-    res.json({ message: 'Test route works!', timestamp: new Date().toISOString() });
-});
-
-// Initialize database before starting routes
+// Initialize database and setup routes
 initializeDatabase()
     .then((db) => {
         // Make database available to routes
         app.locals.db = db;
-        console.log('🎯 Database initialization complete');
+        console.log('🚀 All routes configured');
         
-        // FIXED: Middleware to check database BEFORE processing deploy requests (moved inside promise)
-        app.use('/api/v1/deploy*', (req, res, next) => {
-            if (!app.locals.db) {
-                return res.status(503).json({
-                    error: 'Service unavailable',
-                    message: 'Database is still initializing, please try again in a few seconds'
-                });
-            }
-            next();
-        });
-        
-        // NOW setup the API routes (after database and middleware are ready)
+        // Setup API routes (after database is ready)
         app.use('/api/v1', deployRoutes);
         
         // Admin stats endpoint
         app.get('/api/v1/admin/stats', (req, res) => {
-            const queries = [
-                "SELECT COUNT(*) as total FROM deployments",
-                "SELECT COUNT(*) as successful FROM deployments WHERE status = 'COMPLETED'",
-                "SELECT COUNT(*) as failed FROM deployments WHERE status = 'FAILED'",
-                "SELECT COUNT(*) as pending FROM deployments WHERE status IN ('QUEUED', 'INSTALLING', 'DEPLOYING')"
-            ];
+            const db = req.app.locals.db;
             
-            Promise.all(queries.map(query => 
-                new Promise((resolve, reject) => {
-                    db.get(query, (err, row) => {
-                        if (err) reject(err);
-                        else resolve(Object.values(row)[0]);
+            db.all(`
+                SELECT 
+                    COUNT(*) as total_deployments,
+                    COUNT(CASE WHEN status = 'SUCCESS' THEN 1 END) as successful_deployments,
+                    COUNT(CASE WHEN status = 'FAILED' THEN 1 END) as failed_deployments,
+                    COUNT(CASE WHEN status IN ('PENDING', 'INSTALLING', 'DEPLOYING') THEN 1 END) as pending_deployments
+                FROM deployments
+            `, (err, rows) => {
+                if (err) {
+                    return res.status(500).json({
+                        error: 'Database query failed',
+                        message: err.message
                     });
-                })
-            )).then(([total, successful, failed, pending]) => {
+                }
+                
+                const stats = rows[0];
+                const successRate = stats.total_deployments > 0 
+                    ? ((stats.successful_deployments / stats.total_deployments) * 100).toFixed(1) + '%'
+                    : '0%';
+                
                 res.json({
-                    total_deployments: total,
-                    successful_deployments: successful,
-                    failed_deployments: failed,
-                    pending_deployments: pending,
-                    success_rate: total > 0 ? ((successful / total) * 100).toFixed(2) + '%' : '0%'
+                    total_deployments: stats.total_deployments,
+                    successful_deployments: stats.successful_deployments,
+                    failed_deployments: stats.failed_deployments,
+                    pending_deployments: stats.pending_deployments,
+                    success_rate: successRate
                 });
-            }).catch(err => {
-                res.status(500).json({ error: 'Failed to fetch stats' });
             });
         });
-        
-        console.log('🚀 All routes configured');
     })
-    .catch((err) => {
-        console.error('💥 FATAL: Database initialization failed:', err);
+    .catch(err => {
+        console.error('❌ Database initialization failed:', err);
         process.exit(1);
     });
 
-// Global error handler
-app.use((err, req, res, next) => {
-    console.error('❌ Unhandled error:', err);
-    res.status(500).json({
-        error: 'Internal server error',
-        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
-    });
-});
-
-// 404 handler
-app.use((req, res) => {
+// 404 handler for API routes
+app.use('/api/v1/*', (req, res) => {
     res.status(404).json({
         error: 'Endpoint not found',
         available_endpoints: [
@@ -254,39 +208,16 @@ app.use((req, res) => {
     });
 });
 
-// Graceful shutdown
-process.on('SIGTERM', () => {
-    console.log('🔄 SIGTERM received, shutting down gracefully...');
-    if (app.locals.db) {
-        app.locals.db.close((err) => {
-            if (err) {
-                console.error('❌ Error closing database:', err.message);
-            } else {
-                console.log('✅ Database connection closed');
-            }
-            process.exit(0);
-        });
-    } else {
-        process.exit(0);
-    }
+// Global error handler
+app.use((err, req, res, next) => {
+    console.error('💥 Global error handler:', err);
+    res.status(500).json({
+        error: 'Internal server error',
+        message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong'
+    });
 });
 
-process.on('SIGINT', () => {
-    console.log('🔄 SIGINT received, shutting down gracefully...');
-    if (app.locals.db) {
-        app.locals.db.close((err) => {
-            if (err) {
-                console.error('❌ Error closing database:', err.message);
-            } else {
-                console.log('✅ Database connection closed');
-            }
-            process.exit(0);
-        });
-    } else {
-        process.exit(0);
-    }
-});
-
+// Start server
 app.listen(PORT, () => {
     console.log(`🚀 Cosmos Launchpad API starting on port ${PORT}`);
     console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
