@@ -24,7 +24,7 @@
             position: relative;
         }
         
-        /* Fixed Cosmic Background */
+        /* FIXED COSMIC BACKGROUND WITH PARTICLES */
         .cosmic-bg {
             position: fixed;
             top: 0;
@@ -32,24 +32,34 @@
             width: 100%;
             height: 100%;
             background: 
-                radial-gradient(2px 2px at 20px 30px, #00C4FF, transparent),
-                radial-gradient(2px 2px at 40px 70px, rgba(123, 97, 255, 0.8), transparent),
-                radial-gradient(1px 1px at 90px 40px, #FF6B9D, transparent),
-                radial-gradient(1px 1px at 130px 80px, #FFD93D, transparent),
-                radial-gradient(2px 2px at 160px 30px, #00C4FF, transparent);
-            background-repeat: repeat;
-            background-size: 200px 100px;
-            animation: float 20s ease-in-out infinite;
-            opacity: 0.4;
+                radial-gradient(circle at 20% 30%, rgba(0, 196, 255, 0.3) 1px, transparent 1px),
+                radial-gradient(circle at 60% 70%, rgba(123, 97, 255, 0.2) 1px, transparent 1px),
+                radial-gradient(circle at 80% 20%, rgba(255, 107, 157, 0.2) 1px, transparent 1px),
+                radial-gradient(circle at 30% 80%, rgba(255, 217, 61, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 90% 60%, rgba(0, 196, 255, 0.2) 1px, transparent 1px);
+            background-size: 300px 200px, 400px 300px, 250px 150px, 350px 250px, 280px 180px;
+            background-position: 0 0, 100px 50px, 200px 100px, 50px 150px, 150px 0px;
+            animation: cosmic-drift 30s ease-in-out infinite;
+            opacity: 0.6;
             z-index: -2;
         }
         
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(2deg); }
+        @keyframes cosmic-drift {
+            0%, 100% { 
+                transform: translateX(0px) translateY(0px) rotate(0deg);
+                opacity: 0.6;
+            }
+            33% { 
+                transform: translateX(-30px) translateY(-20px) rotate(1deg);
+                opacity: 0.4;
+            }
+            66% { 
+                transform: translateX(20px) translateY(-10px) rotate(-1deg);
+                opacity: 0.8;
+            }
         }
         
-        /* Shooting Stars */
+        /* WORKING SHOOTING STARS */
         .shooting-stars {
             position: fixed;
             top: 0;
@@ -61,36 +71,149 @@
             overflow: hidden;
         }
         
-        .star {
+        .shooting-star {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 3px;
+            height: 3px;
             background: #00C4FF;
             border-radius: 50%;
-            box-shadow: 0 0 6px #00C4FF;
+            box-shadow: 
+                0 0 10px #00C4FF,
+                0 0 20px #00C4FF,
+                0 0 30px rgba(0, 196, 255, 0.5);
             opacity: 0;
-            animation: shooting 4s linear infinite;
         }
         
-        .star:nth-child(1) { top: 20%; left: -50px; animation-delay: 0s; }
-        .star:nth-child(2) { top: 40%; left: -50px; animation-delay: 1.5s; }
-        .star:nth-child(3) { top: 60%; left: -50px; animation-delay: 3s; }
-        .star:nth-child(4) { top: 80%; left: -50px; animation-delay: 4.5s; }
-        
-        .star::before {
+        .shooting-star::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 50px;
+            top: 1px;
+            left: 1px;
+            width: 100px;
             height: 1px;
-            background: linear-gradient(90deg, transparent, #00C4FF, transparent);
-            transform: translateX(-50px);
+            background: linear-gradient(90deg, #00C4FF, rgba(0, 196, 255, 0.8), transparent);
+            transform: translateX(-100px);
+            border-radius: 1px;
+        }
+        
+        .shooting-star:nth-child(1) {
+            top: 15%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 0s;
+        }
+        
+        .shooting-star:nth-child(2) {
+            top: 35%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 2s;
+        }
+        
+        .shooting-star:nth-child(3) {
+            top: 55%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 4s;
+        }
+        
+        .shooting-star:nth-child(4) {
+            top: 75%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 1s;
+        }
+        
+        .shooting-star:nth-child(5) {
+            top: 25%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 3s;
+        }
+        
+        .shooting-star:nth-child(6) {
+            top: 65%;
+            left: -50px;
+            animation: shooting 6s linear infinite;
+            animation-delay: 5s;
         }
         
         @keyframes shooting {
             0% {
-                transform: translateX(0px);
+                transform: translateX(0px) translateY(0px);
+                opacity: 0;
+            }
+            5% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(calc(100vw + 150px)) translateY(-100px);
+                opacity: 0;
+            }
+        }
+        
+        /* FLOATING COMETS */
+        .cosmic-comets {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .comet {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #7B61FF;
+            border-radius: 50%;
+            box-shadow: 
+                0 0 15px #7B61FF,
+                0 0 25px rgba(123, 97, 255, 0.6);
+            opacity: 0;
+        }
+        
+        .comet::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 80px;
+            height: 2px;
+            background: linear-gradient(90deg, #7B61FF, rgba(123, 97, 255, 0.6), transparent);
+            transform: translateX(-80px) rotate(-15deg);
+            border-radius: 2px;
+        }
+        
+        .comet:nth-child(1) {
+            top: 10%;
+            right: -50px;
+            animation: comet-path 8s linear infinite;
+            animation-delay: 0s;
+        }
+        
+        .comet:nth-child(2) {
+            top: 40%;
+            right: -50px;
+            animation: comet-path 8s linear infinite;
+            animation-delay: 4s;
+        }
+        
+        .comet:nth-child(3) {
+            top: 70%;
+            right: -50px;
+            animation: comet-path 8s linear infinite;
+            animation-delay: 2s;
+        }
+        
+        @keyframes comet-path {
+            0% {
+                transform: translateX(0px) translateY(0px);
                 opacity: 0;
             }
             10% {
@@ -100,7 +223,7 @@
                 opacity: 1;
             }
             100% {
-                transform: translateX(calc(100vw + 100px));
+                transform: translateX(calc(-100vw - 150px)) translateY(50px);
                 opacity: 0;
             }
         }
@@ -239,6 +362,128 @@
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 0 30px rgba(0, 196, 255, 0.5);
+        }
+        
+        /* SSH Setup Section */
+        .ssh-setup-section {
+            background: rgba(28, 37, 38, 0.9);
+            border-radius: 20px;
+            padding: 50px 40px;
+            margin: 60px 0;
+            border: 2px solid #00FF88;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 50px rgba(0, 255, 136, 0.2);
+        }
+        
+        .ssh-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .ssh-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            color: #00FF88;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px #00FF88;
+        }
+        
+        .ssh-subtitle {
+            color: #A3BFFA;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+        
+        .ssh-steps {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .ssh-step {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: linear-gradient(45deg, #00FF88, #00CC66);
+            color: #000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        
+        .step-title {
+            font-family: 'Orbitron', sans-serif;
+            color: #00FF88;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            margin-left: 20px;
+        }
+        
+        .step-description {
+            color: #A3BFFA;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            color: #00FF88;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 196, 255, 0.2);
+            border: 1px solid #00C4FF;
+            color: #00C4FF;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: rgba(0, 196, 255, 0.4);
+        }
+        
+        .warning-box {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid #FFC107;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #FFC107;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .warning-icon {
+            font-size: 1.2rem;
+            margin-top: 2px;
         }
         
         /* FAQ Section */
@@ -898,7 +1143,7 @@
                 font-size: 0.9rem;
                 padding: 8px 12px;
             }
-            .free-plan-section, .premium-modules, .deploy-section {
+            .free-plan-section, .premium-modules, .deploy-section, .ssh-setup-section {
                 padding: 30px 20px;
                 margin: 30px 0;
             }
@@ -915,6 +1160,15 @@
             .category-title {
                 font-size: 1.5rem;
             }
+            .ssh-title {
+                font-size: 2rem;
+            }
+            .ssh-step {
+                padding: 20px;
+            }
+            .step-title {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -924,10 +1178,19 @@
     
     <!-- Shooting Stars -->
     <div class="shooting-stars">
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
-        <div class="star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
+
+    <!-- Floating Comets -->
+    <div class="cosmic-comets">
+        <div class="comet"></div>
+        <div class="comet"></div>
+        <div class="comet"></div>
     </div>
 
     <!-- Contact Modal -->
@@ -985,6 +1248,7 @@
     <nav>
         <ul>
             <li><a href="#" class="nav-logo">⚡ Cosmos Launchpad</a></li>
+            <li><a href="#ssh-setup">SSH Setup</a></li>
             <li><a href="#deploy">Deploy FREE</a></li>
             <li><a href="#modules">Premium Modules</a></li>
             <li><a href="#" onclick="openModal('general')">Contact</a></li>
@@ -1017,8 +1281,92 @@
             </div>
             
             <div>
+                <a href="#ssh-setup" class="cta-button">🔑 Setup SSH First</a>
                 <a href="#deploy" class="cta-button">Deploy FREE Now</a>
                 <a href="#modules" class="cta-button cta-secondary">Explore Premium Modules</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SSH Setup Section -->
+    <section id="ssh-setup" class="container">
+        <div class="ssh-setup-section">
+            <div class="ssh-header">
+                <h2 class="ssh-title">🔑 SSH Key Setup Guide</h2>
+                <p class="ssh-subtitle">Follow these exact steps to prepare your VPS for blockchain deployment</p>
+                <div class="warning-box">
+                    <span class="warning-icon">⚠️</span>
+                    <div>
+                        <strong>Important:</strong> You must complete SSH setup BEFORE deploying your blockchain. This ensures secure, automated deployment to your VPS.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="ssh-steps">
+                <div class="ssh-step">
+                    <div class="step-number">1</div>
+                    <h3 class="step-title">Connect to Your VPS</h3>
+                    <p class="step-description">First, manually connect to your VPS using SSH. Replace YOUR_VPS_IP with your actual server IP address.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'ssh root@YOUR_VPS_IP')">Copy</button>
+ssh root@YOUR_VPS_IP
+                    </div>
+                    <p class="step-description">Enter your password when prompted. If you can't connect, check your VPS provider's instructions for SSH access.</p>
+                </div>
+                
+                <div class="ssh-step">
+                    <div class="step-number">2</div>
+                    <h3 class="step-title">Generate Deployment SSH Key</h3>
+                    <p class="step-description">Once connected to your VPS, generate a dedicated SSH key for blockchain deployments. This key will have no passphrase for automated deployment.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'ssh-keygen -t rsa -b 4096 -f /root/.ssh/cosmos_deploy_key -m OpenSSH')">Copy</button>
+ssh-keygen -t rsa -b 4096 -f /root/.ssh/cosmos_deploy_key -m OpenSSH
+                    </div>
+                    <p class="step-description">When prompted for a passphrase, <strong>press Enter</strong> (leave empty). This is crucial for automated deployment.</p>
+                </div>
+                
+                <div class="ssh-step">
+                    <div class="step-number">3</div>
+                    <h3 class="step-title">Add Key to Authorized Keys</h3>
+                    <p class="step-description">Add your new public key to the authorized keys file so the deployment system can connect.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'cat /root/.ssh/cosmos_deploy_key.pub >> /root/.ssh/authorized_keys')">Copy</button>
+cat /root/.ssh/cosmos_deploy_key.pub >> /root/.ssh/authorized_keys
+                    </div>
+                    <p class="step-description">This allows the deployment system to authenticate using your new key.</p>
+                </div>
+                
+                <div class="ssh-step">
+                    <div class="step-number">4</div>
+                    <h3 class="step-title">Copy Private Key for Deployment</h3>
+                    <p class="step-description">Display your private key and copy it for use in the deployment form below.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'cat /root/.ssh/cosmos_deploy_key')">Copy</button>
+cat /root/.ssh/cosmos_deploy_key
+                    </div>
+                    <p class="step-description">Copy the entire output (including -----BEGIN OPENSSH PRIVATE KEY----- and -----END OPENSSH PRIVATE KEY-----) and paste it into the "SSH Private Key" field in the deployment form.</p>
+                </div>
+                
+                <div class="ssh-step">
+                    <div class="step-number">5</div>
+                    <h3 class="step-title">Test Your Setup (Optional)</h3>
+                    <p class="step-description">Verify that your SSH key works by testing a connection from another terminal.</p>
+                    <div class="code-block">
+                        <button class="copy-btn" onclick="copyToClipboard(this, 'ssh -i /root/.ssh/cosmos_deploy_key root@YOUR_VPS_IP')">Copy</button>
+ssh -i /root/.ssh/cosmos_deploy_key root@YOUR_VPS_IP
+                    </div>
+                    <p class="step-description">If this connects without asking for a password, your setup is perfect!</p>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <div class="warning-box">
+                    <span class="warning-icon">🔐</span>
+                    <div>
+                        <strong>Security Note:</strong> The private key is used only during deployment and is immediately discarded. We never store your SSH keys or maintain access to your VPS.
+                    </div>
+                </div>
+                <a href="#deploy" class="cta-button" style="margin-top: 20px;">✅ SSH Ready - Deploy Blockchain Now</a>
             </div>
         </div>
     </section>
@@ -1214,7 +1562,7 @@
                         </div>
                         <div class="form-group">
                             <label for="vpsIP">VPS IP Address</label>
-                            <input type="text" id="vpsIP" name="vpsIP" placeholder="192.168.1.100" required>
+                            <input type="text" id="vpsIP" name="vpsIP" placeholder="203.0.113.10" required>
                         </div>
                     </div>
                     
@@ -1232,7 +1580,7 @@
                     <div class="form-group">
                         <label for="sshKey">SSH Private Key</label>
                         <textarea id="sshKey" name="sshKey" rows="6" placeholder="-----BEGIN OPENSSH PRIVATE KEY-----
-Your private key here...
+Your cosmos_deploy_key private key here...
 -----END OPENSSH PRIVATE KEY-----" required></textarea>
                     </div>
                     
@@ -1256,15 +1604,10 @@ Your private key here...
                 <div id="statusProgress" class="status-progress"></div>
             </div>
             <div id="terminalOutput" class="terminal-preview">
-                <div class="terminal-line"><span class="terminal-prompt">root@cosmoslaunchpad:~$</span> ssh root@192.168.1.100</div>
-                <div class="terminal-line">Connected to VPS successfully!</div>
-                <div class="terminal-line"><span class="terminal-prompt">root@vps:~$</span> ignite scaffold chain my-awesome-chain</div>
-                <div class="terminal-line">✨ Creating blockchain...</div>
-                <div class="terminal-line"><span class="terminal-prompt">root@vps:~$</span> cd my-awesome-chain</div>
-                <div class="terminal-line"><span class="terminal-prompt">root@vps:~/my-awesome-chain$</span> ignite chain serve</div>
-                <div class="terminal-line">🚀 Blockchain is live!</div>
-                <div class="terminal-line" style="color: #00C4FF;">RPC: http://192.168.1.100:26657</div>
-                <div class="terminal-line" style="color: #00C4FF;">API: http://192.168.1.100:1317</div>
+                <div class="terminal-line"><span class="terminal-prompt">root@cosmoslaunchpad:~$</span> Connecting to your VPS...</div>
+                <div class="terminal-line">🔍 Checking dependencies...</div>
+                <div class="terminal-line">⚡ Installing Go, Ignite CLI, buf...</div>
+                <div class="terminal-line">🚀 Ready to deploy blockchain...</div>
             </div>
         </div>
     </section>
@@ -1395,6 +1738,33 @@ Your private key here...
     </section>
 
     <script>
+        // =================================
+        // COPY TO CLIPBOARD FUNCTION
+        // =================================
+        
+        function copyToClipboard(button, text) {
+            navigator.clipboard.writeText(text).then(function() {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = 'rgba(0, 255, 136, 0.4)';
+                button.style.borderColor = '#00FF88';
+                button.style.color = '#00FF88';
+                
+                setTimeout(function() {
+                    button.textContent = originalText;
+                    button.style.background = 'rgba(0, 196, 255, 0.2)';
+                    button.style.borderColor = '#00C4FF';
+                    button.style.color = '#00C4FF';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Copy failed';
+                setTimeout(function() {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+        
         // =================================
         // MODAL FUNCTIONS
         // =================================
@@ -1683,29 +2053,34 @@ Your private key here...
                     statusProgress.style.width = info.progress + '%';
                 }
 
-                this.updateTerminalOutput(status.status);
+                this.updateTerminalOutput(status);
             }
 
             updateTerminalOutput(status) {
                 const terminal = document.getElementById('terminalOutput');
                 if (!terminal) return;
 
-                const commands = {
-                    'INSTALLING': ['Installing Go, Ignite CLI, buf...', '✨ Dependencies ready!'],
-                    'DEPLOYING': ['ignite scaffold chain ' + (document.getElementById('chainName')?.value || 'your-chain'), '🚀 Starting blockchain...'],
-                    'COMPLETED': ['', '✅ FREE blockchain is live!']
-                };
+                const chainName = document.getElementById('chainName')?.value || 'your-chain';
+                const vpsIP = document.getElementById('vpsIP')?.value || 'your-vps-ip';
 
-                if (commands[status]) {
-                    const [command, output] = commands[status];
-                    if (command) {
-                        terminal.innerHTML += `\n<div class="terminal-line">${command}</div>`;
+                if (status.status === 'INSTALLING') {
+                    terminal.innerHTML += `\n<div class="terminal-line">✅ Installing Go, Ignite CLI, buf...</div>`;
+                    terminal.innerHTML += `\n<div class="terminal-line">🔍 Checking dependencies...</div>`;
+                } else if (status.status === 'DEPLOYING') {
+                    terminal.innerHTML += `\n<div class="terminal-line"><span class="terminal-prompt">root@vps:~$</span> ignite scaffold chain ${chainName}</div>`;
+                    terminal.innerHTML += `\n<div class="terminal-line">✨ Creating blockchain...</div>`;
+                    terminal.innerHTML += `\n<div class="terminal-line">🚀 Starting blockchain services...</div>`;
+                } else if (status.status === 'COMPLETED') {
+                    terminal.innerHTML += `\n<div class="terminal-line">✅ FREE blockchain is live!</div>`;
+                    if (status.rpc_endpoint) {
+                        terminal.innerHTML += `\n<div class="terminal-line" style="color: #00C4FF;">RPC: ${status.rpc_endpoint}</div>`;
                     }
-                    if (output) {
-                        terminal.innerHTML += `\n<div class="terminal-line">${output}</div>`;
+                    if (status.api_endpoint) {
+                        terminal.innerHTML += `\n<div class="terminal-line" style="color: #00C4FF;">API: ${status.api_endpoint}</div>`;
                     }
-                    terminal.scrollTop = terminal.scrollHeight;
                 }
+                
+                terminal.scrollTop = terminal.scrollHeight;
             }
 
             showDeploymentComplete(status) {
@@ -1713,14 +2088,6 @@ Your private key here...
                 if (statusMessage) {
                     statusMessage.style.color = '#00FF88';
                     statusMessage.textContent = '🎉 Your FREE blockchain is live!';
-                }
-
-                if (status.rpc_endpoint || status.api_endpoint) {
-                    const terminal = document.getElementById('terminalOutput');
-                    if (terminal) {
-                        terminal.innerHTML += `\n<div class="terminal-line" style="color: #00C4FF;">RPC: ${status.rpc_endpoint}</div>`;
-                        terminal.innerHTML += `\n<div class="terminal-line" style="color: #00C4FF;">API: ${status.api_endpoint}</div>`;
-                    }
                 }
 
                 this.showSuccess('🚀 Your FREE blockchain is successfully deployed and running!');
