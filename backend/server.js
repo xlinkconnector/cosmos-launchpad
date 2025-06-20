@@ -57,7 +57,7 @@ async function initializeDatabase() {
             console.log('✅ Connected to SQLite database');
         });
 
-        // Create deployments table
+        // Create deployments table with ALL possible columns
         db.run(`
             CREATE TABLE IF NOT EXISTS deployments (
                 id TEXT PRIMARY KEY,
@@ -66,6 +66,7 @@ async function initializeDatabase() {
                 ssh_user TEXT NOT NULL,
                 ssh_password TEXT,
                 ssh_key TEXT,
+                ssh_port INTEGER DEFAULT 22,
                 status TEXT NOT NULL DEFAULT 'PENDING',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -73,9 +74,16 @@ async function initializeDatabase() {
                 api_endpoint TEXT,
                 rest_endpoint TEXT,
                 grpc_endpoint TEXT,
+                websocket_endpoint TEXT,
+                chain_id TEXT,
+                network_name TEXT,
                 error_message TEXT,
                 deployment_logs TEXT,
-                progress INTEGER DEFAULT 0
+                progress INTEGER DEFAULT 0,
+                deployment_time INTEGER,
+                installer_logs TEXT,
+                dependencies_installed BOOLEAN DEFAULT 0,
+                blockchain_started BOOLEAN DEFAULT 0
             )
         `, (err) => {
             if (err) {
