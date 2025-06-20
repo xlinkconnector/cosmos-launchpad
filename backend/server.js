@@ -63,15 +63,19 @@ async function initializeDatabase() {
                 id TEXT PRIMARY KEY,
                 chain_name TEXT NOT NULL,
                 vps_ip TEXT NOT NULL,
-                vps_username TEXT NOT NULL,
-                vps_password TEXT,
+                ssh_user TEXT NOT NULL,
+                ssh_password TEXT,
+                ssh_key TEXT,
                 status TEXT NOT NULL DEFAULT 'PENDING',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 rpc_endpoint TEXT,
                 api_endpoint TEXT,
+                rest_endpoint TEXT,
+                grpc_endpoint TEXT,
                 error_message TEXT,
-                deployment_logs TEXT
+                deployment_logs TEXT,
+                progress INTEGER DEFAULT 0
             )
         `, (err) => {
             if (err) {
