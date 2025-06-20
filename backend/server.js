@@ -145,49 +145,56 @@ app.get('/api/v1/db-status', (req, res) => {
     });
 });
 
-// Initialize database and setup routes
+// Setup API routes FIRST (before database init)
+app.use('/api/v1', deployRoutes);
+
+// Admin stats endpoint (moved outside database promise)
+app.get('/api/v1/admin/stats', (req, res) => {
+    if (!req.app.locals.db) {
+        return res.status(503).json({
+            error: 'Database not ready',
+            message: 'Database is still initializing'
+        });
+    }
+    
+    const db = req.app.locals.db;
+    
+    db.all(`
+        SELECT 
+            COUNT(*) as total_deployments,
+            COUNT(CASE WHEN status = 'SUCCESS' THEN 1 END) as successful_deployments,
+            COUNT(CASE WHEN status = 'FAILED' THEN 1 END) as failed_deployments,
+            COUNT(CASE WHEN status IN ('PENDING', 'INSTALLING', 'DEPLOYING') THEN 1 END) as pending_deployments
+        FROM deployments
+    `, (err, rows) => {
+        if (err) {
+            return res.status(500).json({
+                error: 'Database query failed',
+                message: err.message
+            });
+        }
+        
+        const stats = rows[0];
+        const successRate = stats.total_deployments > 0 
+            ? ((stats.successful_deployments / stats.total_deployments) * 100).toFixed(1) + '%'
+            : '0%';
+        
+        res.json({
+            total_deployments: stats.total_deployments,
+            successful_deployments: stats.successful_deployments,
+            failed_deployments: stats.failed_deployments,
+            pending_deployments: stats.pending_deployments,
+            success_rate: successRate
+        });
+    });
+});
+
+// Initialize database (routes already registered above)
 initializeDatabase()
     .then((db) => {
         // Make database available to routes
         app.locals.db = db;
         console.log('🚀 All routes configured');
-        
-        // Setup API routes (after database is ready)
-        app.use('/api/v1', deployRoutes);
-        
-        // Admin stats endpoint
-        app.get('/api/v1/admin/stats', (req, res) => {
-            const db = req.app.locals.db;
-            
-            db.all(`
-                SELECT 
-                    COUNT(*) as total_deployments,
-                    COUNT(CASE WHEN status = 'SUCCESS' THEN 1 END) as successful_deployments,
-                    COUNT(CASE WHEN status = 'FAILED' THEN 1 END) as failed_deployments,
-                    COUNT(CASE WHEN status IN ('PENDING', 'INSTALLING', 'DEPLOYING') THEN 1 END) as pending_deployments
-                FROM deployments
-            `, (err, rows) => {
-                if (err) {
-                    return res.status(500).json({
-                        error: 'Database query failed',
-                        message: err.message
-                    });
-                }
-                
-                const stats = rows[0];
-                const successRate = stats.total_deployments > 0 
-                    ? ((stats.successful_deployments / stats.total_deployments) * 100).toFixed(1) + '%'
-                    : '0%';
-                
-                res.json({
-                    total_deployments: stats.total_deployments,
-                    successful_deployments: stats.successful_deployments,
-                    failed_deployments: stats.failed_deployments,
-                    pending_deployments: stats.pending_deployments,
-                    success_rate: successRate
-                });
-            });
-        });
     })
     .catch(err => {
         console.error('❌ Database initialization failed:', err);
