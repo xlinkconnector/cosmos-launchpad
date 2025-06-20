@@ -216,18 +216,15 @@ class DeploymentManager {
     async deployBlockchain(deploymentData) {
         const { id: deploymentId, chain_name, vps_ip, ssh_user, ssh_port, ssh_key } = deploymentData;
         
+        console.log(`🔍 Connecting to VPS: ${vps_ip} as ${ssh_user} on port ${ssh_port || 22}`);
+        
         const sshConfig = {
             host: vps_ip,
             username: ssh_user,
             port: ssh_port || 22,
             privateKey: ssh_key,
             readyTimeout: 30000,
-            algorithms: {
-                kex: ['diffie-hellman-group14-sha256', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521'],
-                cipher: ['aes128-ctr', 'aes192-ctr', 'aes256-ctr'],
-                serverHostKey: ['rsa-sha2-512', 'rsa-sha2-256', 'ssh-rsa'],
-                hmac: ['hmac-sha2-256', 'hmac-sha2-512']
-            }
+            // Removed restrictive algorithms - let SSH negotiate automatically
         };
 
         try {
