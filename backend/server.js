@@ -57,7 +57,7 @@ async function initializeDatabase() {
             console.log('✅ Connected to SQLite database');
         });
 
-        // Create deployments table with ALL possible columns
+        // Create deployments table with MEGA comprehensive schema
         db.run(`
             CREATE TABLE IF NOT EXISTS deployments (
                 id TEXT PRIMARY KEY,
@@ -67,6 +67,10 @@ async function initializeDatabase() {
                 ssh_password TEXT,
                 ssh_key TEXT,
                 ssh_port INTEGER DEFAULT 22,
+                contact_email TEXT,
+                contact_name TEXT,
+                company_name TEXT,
+                phone_number TEXT,
                 status TEXT NOT NULL DEFAULT 'PENDING',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -83,7 +87,11 @@ async function initializeDatabase() {
                 deployment_time INTEGER,
                 installer_logs TEXT,
                 dependencies_installed BOOLEAN DEFAULT 0,
-                blockchain_started BOOLEAN DEFAULT 0
+                blockchain_started BOOLEAN DEFAULT 0,
+                deployment_type TEXT,
+                module_selection TEXT,
+                custom_config TEXT,
+                notes TEXT
             )
         `, (err) => {
             if (err) {
