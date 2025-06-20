@@ -1293,6 +1293,7 @@
                         <option value="NewsFeed">NewsFeed Module</option>
                         <option value="Reputation">Reputation Module</option>
                         <option value="Escrow">Escrow Module</option>
+                        <option value="AI">AI Assistant Module</option>
                         <option value="custom">Custom Blockchain Solution</option>
                         <option value="multiple">Multiple Modules</option>
                     </select>
@@ -1337,7 +1338,7 @@
                     <span class="stat-label">Your Ownership</span>
                 </div>
                 <div class="stat-item">
-                    <span class="stat-number">13+</span>
+                    <span class="stat-number">14+</span>
                     <span class="stat-label">Custom Modules</span>
                 </div>
             </div>
@@ -1470,7 +1471,7 @@ ssh -i /root/.ssh/cosmos_deploy_key root@YOUR_VPS_IP
         <div class="premium-modules">
             <h2>🚀 Premium Blockchain Modules</h2>
             <p class="premium-subtitle">
-                Transform your blockchain with our 13 battle-tested custom modules. Built for enterprise applications, ready for immediate integration.
+                Transform your blockchain with our 14 battle-tested custom modules. Built for enterprise applications, ready for immediate integration.
             </p>
             
             <div class="module-categories">
@@ -1589,6 +1590,12 @@ ssh -i /root/.ssh/cosmos_deploy_key root@YOUR_VPS_IP
                             <h4 class="module-name">Escrow</h4>
                             <p class="module-description">Secure escrow system with multi-signature support, dispute resolution, and automated release conditions.</p>
                             <button onclick="openModal('Escrow')" class="module-cta">Get Integration Quote</button>
+                        </div>
+                        <div class="module-card">
+                            <div class="module-icon">🤖</div>
+                            <h4 class="module-name">AI Assistant</h4>
+                            <p class="module-description">Revolutionary AI-native blockchain module with on-chain queries, smart contract integration, and tokenized AI economy.</p>
+                            <button onclick="openModal('AI')" class="module-cta">Get Integration Quote</button>
                         </div>
                     </div>
                 </div>
@@ -2207,41 +2214,4 @@ Your cosmos_deploy_key private key here...
                 alert.className = `alert alert-${type}`;
                 alert.textContent = message;
 
-                const container = document.querySelector('.deploy-form') || document.querySelector('.deployment-status');
-                if (container) {
-                    container.insertBefore(alert, container.firstChild);
-                }
-
-                setTimeout(() => alert.remove(), 8000);
-            }
-
-            addLoadingStyles() {
-                if (!document.querySelector('#loadingStyles')) {
-                    const style = document.createElement('style');
-                    style.id = 'loadingStyles';
-                    style.textContent = `
-                        .loading {
-                            display: inline-block;
-                            width: 20px;
-                            height: 20px;
-                            border: 3px solid rgba(0, 196, 255, 0.3);
-                            border-radius: 50%;
-                            border-top-color: #00C4FF;
-                            animation: spin 1s ease-in-out infinite;
-                        }
-                        @keyframes spin {
-                            to { transform: rotate(360deg); }
-                        }
-                    `;
-                    document.head.appendChild(style);
-                }
-            }
-        }
-
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            new CosmosLaunchpad();
-        });
-    </script>
-</body>
-</html>
+                const container = document.querySelector
