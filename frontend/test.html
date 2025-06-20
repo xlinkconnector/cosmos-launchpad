@@ -3,40 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Escrow Smart Chain - The Blockchain Built for Trust | Revolutionary Real Estate Platform</title>
-    <meta name="description" content="🏠 World's first escrow-native blockchain for real estate. Deploy tokenized real estate platforms in 60 seconds. Smart escrow, automated transactions, global liquidity. Built for real estate professionals.">
-    <meta name="keywords" content="escrow blockchain, real estate tokenization, smart escrow, property blockchain, real estate agents, smart contracts, fractional ownership, RWA tokenization, escrow smart chain, property investment, blockchain escrow">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Escrow Smart Chain - The Blockchain Built for Trust">
-    <meta property="og:description" content="Revolutionary escrow-native blockchain for real estate tokenization. Deploy in 60 seconds.">
-    <meta property="og:image" content="https://escrow.sc/og-image.png">
-    <meta property="og:url" content="https://escrow.sc">
-    
-    <!-- Fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Deploy Escrow Smart Chain - The Blockchain Built for Trust</title>
+    <meta name="description" content="Deploy your escrow-native blockchain for real estate in 60 seconds. Revolutionary smart escrow technology.">
     
     <style>
-        :root {
-            --primary-gold: #FFD700;
-            --primary-blue: #0A2342;
-            --secondary-blue: #1E3A5F;
-            --accent-blue: #2E5BBA;
-            --light-blue: #E8F2FF;
-            --success-green: #10B981;
-            --text-primary: #0F172A;
-            --text-secondary: #64748B;
-            --text-light: #94A3B8;
-            --bg-primary: #FFFFFF;
-            --bg-secondary: #F8FAFC;
-            --border-color: #E2E8F0;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -44,389 +14,36 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
             line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            overflow-x: hidden;
+            color: #1e3a8a;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 40px 20px;
         }
 
-        /* Header & Navigation */
         .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 0;
+            text-align: center;
+            margin-bottom: 60px;
         }
 
         .logo {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            text-decoration: none;
+            margin-bottom: 30px;
         }
 
         .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 20px;
-        }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 32px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-blue);
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-gold);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        .cta-button {
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-md);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 120px 0 80px;
-            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23FFD700" fill-opacity="0.1" points="0,1000 1000,0 1000,1000"/></svg>');
-            background-size: cover;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: white;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 215, 0, 0.2);
-            border: 1px solid rgba(255, 215, 0, 0.3);
-            padding: 8px 16px;
-            border-radius: 50px;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 24px;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: clamp(48px, 6vw, 72px);
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #FFFFFF, var(--primary-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero-subtitle {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            color: var(--primary-gold);
-        }
-
-        .hero-description {
-            font-size: 20px;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-            opacity: 0.9;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 32px;
-            margin: 60px 0 40px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--primary-gold);
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        .stat-label {
-            font-size: 16px;
-            opacity: 0.8;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-            color: var(--primary-blue);
-            padding: 16px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            box-shadow: var(--shadow-lg);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 32px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary:hover, .btn-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: var(--bg-secondary);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 48px;
-            font-weight: 700;
-            color: var(--primary-blue);
-            margin-bottom: 16px;
-        }
-
-        .section-subtitle {
-            font-size: 20px;
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 32px;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: var(--shadow-md);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            color: white;
-            margin-bottom: 24px;
-        }
-
-        .feature-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 16px;
-        }
-
-        .feature-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .feature-benefits {
-            list-style: none;
-        }
-
-        .feature-benefits li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        .feature-benefits li::before {
-            content: '✓';
-            color: var(--success-green);
-            font-weight: bold;
-        }
-
-        /* Modules Section */
-        .modules {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .modules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-            gap: 24px;
-            margin-top: 60px;
-        }
-
-        .module-card {
-            background: linear-gradient(135deg, var(--light-blue), #F0F9FF);
-            border: 1px solid rgba(46, 91, 186, 0.1);
-            border-radius: 16px;
-            padding: 32px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .module-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-        }
-
-        .module-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .module-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-
-        .module-icon {
             width: 50px;
             height: 50px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--primary-blue));
+            background: linear-gradient(135deg, #ffd700, #ffa500);
             border-radius: 10px;
             display: flex;
             align-items: center;
@@ -435,1060 +52,219 @@
             color: white;
         }
 
-        .module-info h3 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            color: var(--primary-blue);
-            margin-bottom: 4px;
-        }
-
-        .module-category {
-            font-size: 14px;
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        .module-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .module-features {
-            list-style: none;
-            margin-bottom: 24px;
-        }
-
-        .module-features li {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            font-size: 14px;
-            color: var(--text-secondary);
-        }
-
-        .module-features li::before {
-            content: '•';
-            color: var(--accent-blue);
-            font-weight: bold;
-        }
-
-        .module-pricing {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 20px;
-            border-top: 1px solid rgba(46, 91, 186, 0.1);
-        }
-
-        .module-price {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
+        .logo-text {
+            font-size: 32px;
             font-weight: 700;
-            color: var(--primary-blue);
+            color: #1e3a8a;
         }
 
-        .module-btn {
-            background: var(--accent-blue);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .module-btn:hover {
-            background: var(--primary-blue);
-            transform: translateY(-1px);
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-            color: white;
-            text-align: center;
-        }
-
-        .cta-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .cta-title {
-            font-family: 'Space Grotesk', sans-serif;
+        .main-title {
             font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 24px;
+            font-weight: 800;
+            color: #1e3a8a;
+            margin-bottom: 20px;
+            line-height: 1.2;
         }
 
-        .cta-description {
+        .subtitle {
             font-size: 20px;
+            color: #64748b;
             margin-bottom: 40px;
-            opacity: 0.9;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* Footer */
-        .footer {
-            background: var(--primary-blue);
-            color: white;
-            padding: 60px 0 20px;
+        .highlight {
+            background: linear-gradient(135deg, #ffd700, #ffa500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .footer-content {
+        .deployment-section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 2px solid #e2e8f0;
+            margin-bottom: 40px;
+        }
+
+        .deployment-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .deployment-description {
+            text-align: center;
+            color: #64748b;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-top: 60px;
         }
 
-        .footer-section h4 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
+        .feature {
+            text-align: center;
+            padding: 30px 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .feature-icon {
+            font-size: 48px;
             margin-bottom: 20px;
-            color: var(--primary-gold);
         }
 
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1e3a8a;
             margin-bottom: 12px;
         }
 
+        .feature-description {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
         .footer-links a {
-            color: rgba(255, 255, 255, 0.8);
+            color: #64748b;
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s ease;
         }
 
         .footer-links a:hover {
-            color: var(--primary-gold);
+            color: #1e3a8a;
         }
 
-        .footer-bottom {
-            padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            color: rgba(255, 255, 255, 0.6);
+        .copyright {
+            color: #94a3b8;
+            font-size: 14px;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .main-title {
+                font-size: 32px;
             }
             
-            .hero-buttons {
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .deployment-section {
+                padding: 20px;
+            }
+            
+            .footer-links {
                 flex-direction: column;
-                align-items: center;
+                gap: 15px;
             }
-            
-            .features-grid,
-            .modules-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .section-title {
-                font-size: 36px;
-            }
-            
-            .hero-title {
-                font-size: 40px;
-            }
-        }
-
-        /* Floating Elements */
-        .floating-icon {
-            position: absolute;
-            opacity: 0.1;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .floating-icon:nth-child(2) { animation-delay: -2s; }
-        .floating-icon:nth-child(3) { animation-delay: -4s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        /* Premium Styling */
-        .premium-badge {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            background: linear-gradient(135deg, var(--primary-gold), #FFA500);
-            color: var(--primary-blue);
-            padding: 4px 12px;
-            border-radius: 16px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-        }
-
-        .core-module {
-            border: 2px solid var(--primary-gold);
-            position: relative;
-        }
-
-        .core-module::after {
-            content: 'CORE';
-            position: absolute;
-            top: -12px;
-            left: 24px;
-            background: var(--primary-gold);
-            color: var(--primary-blue);
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 700;
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <nav class="nav">
-                <a href="#" class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <span>Escrow Smart Chain</span>
-                </a>
-                
-                <ul class="nav-links">
-                    <li><a href="#features">Platform</a></li>
-                    <li><a href="#modules">Modules</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#docs">Documentation</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                
-                <a href="#deploy" class="cta-button">
-                    <i class="fas fa-rocket"></i>
-                    Deploy Now
-                </a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content animate-fade-in-up">
-                <div class="hero-badge">
-                    <i class="fas fa-star"></i>
-                    World's First Escrow-Native Blockchain
-                </div>
-                
-                <h1 class="hero-title">The Blockchain Built for Trust</h1>
-                
-                <p class="hero-subtitle">Smart Escrow for Real Estate Revolution</p>
-                
-                <p class="hero-description">
-                    Deploy production-ready real estate tokenization platforms in 60 seconds. 
-                    Revolutionary escrow-native blockchain that transforms property investment 
-                    with smart contracts, fractional ownership, and global liquidity.
-                </p>
-                
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">60s</span>
-                        <span class="stat-label">Deploy Time</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">$300T+</span>
-                        <span class="stat-label">Market Opportunity</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">16+</span>
-                        <span class="stat-label">Premium Modules</span>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">100%</span>
-                        <span class="stat-label">Your Ownership</span>
-                    </div>
-                </div>
-                
-                <div class="hero-buttons">
-                    <a href="#deploy" class="btn-primary">
-                        <i class="fas fa-rocket"></i>
-                        Deploy Your Blockchain
-                    </a>
-                    <a href="#demo" class="btn-secondary">
-                        <i class="fas fa-play"></i>
-                        Watch Demo
-                    </a>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Floating Icons -->
-        <div class="floating-icon" style="top: 20%; left: 10%; font-size: 48px;">🏠</div>
-        <div class="floating-icon" style="top: 60%; right: 15%; font-size: 36px;">🔒</div>
-        <div class="floating-icon" style="bottom: 30%; left: 20%; font-size: 42px;">⚡</div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="features">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Revolutionary Platform Features</h2>
-                <p class="section-subtitle">
-                    Everything you need to revolutionize real estate investment and transactions
-                </p>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">🛡️</div>
+                <div class="logo-text">Escrow Smart Chain</div>
             </div>
             
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="feature-title">60-Second Deployment</h3>
-                    <p class="feature-description">
-                        Deploy production-ready real estate blockchain platforms instantly. 
-                        No coding required, complete automation.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Automated infrastructure setup</li>
-                        <li>Complete Cosmos SDK integration</li>
-                        <li>Real-time deployment tracking</li>
-                        <li>Zero downtime deployment</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="feature-title">Smart Escrow Technology</h3>
-                    <p class="feature-description">
-                        Revolutionary smart contract escrow system that automates 
-                        trust and eliminates traditional escrow limitations.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Automated fund releases</li>
-                        <li>Multi-signature security</li>
-                        <li>Dispute resolution protocols</li>
-                        <li>Regulatory compliance built-in</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                    <h3 class="feature-title">Property Tokenization</h3>
-                    <p class="feature-description">
-                        Transform any real estate into liquid, tradeable tokens 
-                        with fractional ownership and instant settlement.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Fractional ownership from $100</li>
-                        <li>Instant liquidity and trading</li>
-                        <li>Automated dividend distribution</li>
-                        <li>Global investor access</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-globe"></i>
-                    </div>
-                    <h3 class="feature-title">Global Compliance</h3>
-                    <p class="feature-description">
-                        Built-in regulatory compliance for multiple jurisdictions 
-                        with automated KYC/AML and legal framework support.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Multi-jurisdiction compliance</li>
-                        <li>Automated KYC/AML verification</li>
-                        <li>Legal document management</li>
-                        <li>Regulatory reporting</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="feature-title">Advanced Analytics</h3>
-                    <p class="feature-description">
-                        Real-time market data, property performance analytics, 
-                        and AI-powered investment insights.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Real-time market data</li>
-                        <li>Property performance tracking</li>
-                        <li>ROI and yield analytics</li>
-                        <li>Predictive market insights</li>
-                    </ul>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h3 class="feature-title">Professional Network</h3>
-                    <p class="feature-description">
-                        Connect with a global network of real estate professionals, 
-                        investors, and service providers.
-                    </p>
-                    <ul class="feature-benefits">
-                        <li>Global agent referral network</li>
-                        <li>Verified professional directory</li>
-                        <li>Automated commission splits</li>
-                        <li>Cross-border transactions</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Modules Section -->
-    <section id="modules" class="modules">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Comprehensive Module Ecosystem</h2>
-                <p class="section-subtitle">
-                    16+ specialized modules covering every aspect of real estate technology
-                </p>
-            </div>
+            <h1 class="main-title">
+                Deploy Your <span class="highlight">Escrow-Native</span> Blockchain
+            </h1>
             
-            <div class="modules-grid">
-                <!-- Core Modules -->
-                <div class="module-card core-module">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>Smart Escrow Module</h3>
-                            <span class="module-category">Core Platform</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Revolutionary smart contract escrow system with automated fund releases, 
-                        multi-signature security, and built-in dispute resolution.
-                    </p>
-                    <ul class="module-features">
-                        <li>Automated escrow management</li>
-                        <li>Multi-signature security protocols</li>
-                        <li>Milestone-based fund releases</li>
-                        <li>Dispute resolution system</li>
-                        <li>Cross-border escrow support</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">Included</span>
-                        <a href="#contact" class="module-btn">Core Module</a>
-                    </div>
-                </div>
-
-                <div class="module-card core-module">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-building"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>RWA Tokenization Module</h3>
-                            <span class="module-category">Core Platform</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Complete real-world asset tokenization platform for property 
-                        fractionalization, automated distribution, and global trading.
-                    </p>
-                    <ul class="module-features">
-                        <li>Property tokenization engine</li>
-                        <li>Fractional ownership management</li>
-                        <li>Automated dividend distribution</li>
-                        <li>Secondary market trading</li>
-                        <li>Investor management system</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$75,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <!-- Professional Modules -->
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>MLSChain Module</h3>
-                            <span class="module-category">Professional Tools</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        World's first decentralized MLS system with cross-regional 
-                        property sharing and real-time synchronization.
-                    </p>
-                    <ul class="module-features">
-                        <li>Decentralized property listings</li>
-                        <li>Cross-regional MLS sharing</li>
-                        <li>Real-time data synchronization</li>
-                        <li>Immutable listing history</li>
-                        <li>Smart contract listing agreements</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$50,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-percentage"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>CommissionSplit Module</h3>
-                            <span class="module-category">Professional Tools</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Automated commission distribution system with instant payments, 
-                        multi-party splits, and transparent tracking.
-                    </p>
-                    <ul class="module-features">
-                        <li>Automated commission calculations</li>
-                        <li>Instant payment distribution</li>
-                        <li>Multi-party split management</li>
-                        <li>Transaction tracking</li>
-                        <li>Tax documentation</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$25,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-handshake"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>ReferralNetwork Module</h3>
-                            <span class="module-category">Professional Tools</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Global realtor referral blockchain with verified credentials, 
-                        automated payments, and performance tracking.
-                    </p>
-                    <ul class="module-features">
-                        <li>Global agent directory</li>
-                        <li>Verified professional credentials</li>
-                        <li>Smart referral contracts</li>
-                        <li>Automatic referral payments</li>
-                        <li>Performance rating system</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$35,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-history"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>PropertyHistory Module</h3>
-                            <span class="module-category">Data Management</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Immutable property records system with complete ownership history, 
-                        maintenance logs, and legal documentation.
-                    </p>
-                    <ul class="module-features">
-                        <li>Immutable property timeline</li>
-                        <li>Complete ownership history</li>
-                        <li>Maintenance record tracking</li>
-                        <li>Legal document storage</li>
-                        <li>Fraud prevention</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$30,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>ClientCRM Module</h3>
-                            <span class="module-category">Relationship Management</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Blockchain-powered CRM with client data ownership, 
-                        privacy-preserving analytics, and cross-platform compatibility.
-                    </p>
-                    <ul class="module-features">
-                        <li>Decentralized client data</li>
-                        <li>Privacy-preserving analytics</li>
-                        <li>Smart follow-up automation</li>
-                        <li>Lead scoring algorithms</li>
-                        <li>GDPR compliance</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$20,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-file-contract"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>LegalDocs Module</h3>
-                            <span class="module-category">Legal Technology</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Smart contract legal documents platform with automated contingencies, 
-                        digital signatures, and compliance automation.
-                    </p>
-                    <ul class="module-features">
-                        <li>Smart contract agreements</li>
-                        <li>Automated contingency handling</li>
-                        <li>Digital signature integration</li>
-                        <li>Legal template library</li>
-                        <li>Multi-jurisdiction support</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$40,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-bullseye"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>LeadChain Module</h3>
-                            <span class="module-category">Marketing Technology</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Verified lead generation network with quality scoring, 
-                        attribution tracking, and ROI optimization.
-                    </p>
-                    <ul class="module-features">
-                        <li>Blockchain-verified leads</li>
-                        <li>Quality scoring algorithms</li>
-                        <li>Attribution tracking</li>
-                        <li>Performance analytics</li>
-                        <li>ROI optimization</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$25,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-chart-bar"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>MarketData Module</h3>
-                            <span class="module-category">Analytics Platform</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Real-time market intelligence platform with predictive analytics, 
-                        neighborhood insights, and AI-powered valuations.
-                    </p>
-                    <ul class="module-features">
-                        <li>Real-time market analytics</li>
-                        <li>Predictive pricing models</li>
-                        <li>Neighborhood insights</li>
-                        <li>Investment opportunities</li>
-                        <li>AI-powered valuations</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$35,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-id-card"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>RealtorID Module</h3>
-                            <span class="module-category">Professional Identity</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Professional identity verification system with credential management, 
-                        license validation, and global recognition.
-                    </p>
-                    <ul class="module-features">
-                        <li>Verified agent credentials</li>
-                        <li>License validation system</li>
-                        <li>Professional history tracking</li>
-                        <li>Client review system</li>
-                        <li>Global recognition network</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$15,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-home"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>NeighborhoodDAO Module</h3>
-                            <span class="module-category">Community Governance</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Decentralized community governance platform for HOA management, 
-                        voting systems, and transparent community operations.
-                    </p>
-                    <ul class="module-features">
-                        <li>HOA voting systems</li>
-                        <li>Community proposal management</li>
-                        <li>Automated fee collection</li>
-                        <li>Maintenance coordination</li>
-                        <li>Financial transparency</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$30,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <!-- Specialized Modules -->
-                <div class="module-card">
-                    <div class="premium-badge">Premium</div>
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-hammer"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>NewConstruction Module</h3>
-                            <span class="module-category">Development</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Pre-construction sales platform with milestone tracking, 
-                        buyer progress payments, and completion guarantees.
-                    </p>
-                    <ul class="module-features">
-                        <li>Pre-sale tokenization</li>
-                        <li>Construction milestone tracking</li>
-                        <li>Buyer progress payments</li>
-                        <li>Quality assurance verification</li>
-                        <li>Builder reputation system</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$100,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="premium-badge">Premium</div>
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-umbrella-beach"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>VacationRental Module</h3>
-                            <span class="module-category">Hospitality</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Tokenized short-term rental platform with fractional ownership, 
-                        usage scheduling, and automated revenue distribution.
-                    </p>
-                    <ul class="module-features">
-                        <li>Fractional vacation ownership</li>
-                        <li>Usage scheduling system</li>
-                        <li>Revenue distribution</li>
-                        <li>Property management coordination</li>
-                        <li>Booking platform integration</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$75,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="premium-badge">Enterprise</div>
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-city"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>CommercialRE Module</h3>
-                            <span class="module-category">Commercial</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Commercial real estate platform with advanced tokenization, 
-                        lease automation, and investment syndication.
-                    </p>
-                    <ul class="module-features">
-                        <li>Commercial property tokenization</li>
-                        <li>Automated lease agreements</li>
-                        <li>Tenant management system</li>
-                        <li>Cash flow distribution</li>
-                        <li>Investment syndication</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$200,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-
-                <div class="module-card">
-                    <div class="premium-badge">Enterprise</div>
-                    <div class="module-header">
-                        <div class="module-icon">
-                            <i class="fas fa-globe-americas"></i>
-                        </div>
-                        <div class="module-info">
-                            <h3>InternationalRE Module</h3>
-                            <span class="module-category">Global</span>
-                        </div>
-                    </div>
-                    <p class="module-description">
-                        Cross-border real estate platform with multi-currency support, 
-                        international compliance, and global investment access.
-                    </p>
-                    <ul class="module-features">
-                        <li>Multi-currency transactions</li>
-                        <li>International compliance</li>
-                        <li>Foreign investment regulations</li>
-                        <li>Currency hedging</li>
-                        <li>Tax optimization</li>
-                    </ul>
-                    <div class="module-pricing">
-                        <span class="module-price">$150,000</span>
-                        <a href="#contact" class="module-btn">Get Quote</a>
-                    </div>
-                </div>
-            </div>
+            <p class="subtitle">
+                The world's first blockchain built for trust. Launch production-ready 
+                real estate blockchains with smart escrow technology in 60 seconds.
+            </p>
         </div>
-    </section>
 
-    <!-- Live Deployment Section -->
-    <section id="deploy" class="cta-section">
-        <div class="container">
-            <div class="cta-content">
-                <h2 class="cta-title">Deploy Your Escrow Smart Chain Now</h2>
-                <p class="cta-description">
-                    Experience the world's first escrow-native blockchain deployment. 
-                    Launch your production-ready real estate blockchain in 60 seconds.
-                </p>
-                
-                <!-- EMBEDDED BLOCKCHAIN DEPLOYMENT WIDGET -->
-                <div style="max-width: 800px; margin: 40px auto; background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border-radius: 20px; padding: 40px;">
-                    <script src="https://spintax-backend.onrender.com/st_text_plugin.js" st-text-id="blockchain-widget"></script>
-                </div>
-                
-                <div class="hero-buttons" style="margin-top: 40px;">
-                    <a href="#modules" class="btn-secondary">
-                        <i class="fas fa-puzzle-piece"></i>
-                        Explore Modules
-                    </a>
-                    <a href="#contact" class="btn-secondary">
-                        <i class="fas fa-phone"></i>
-                        Get Enterprise Quote
-                    </a>
-                </div>
-            </div>
+        <div class="deployment-section">
+            <h2 class="deployment-title">🚀 Live Blockchain Deployment</h2>
+            <p class="deployment-description">
+                Deploy your complete real estate tokenization platform instantly. 
+                No coding required, complete ownership, enterprise-ready.
+            </p>
+            
+            <!-- YOUR WORKING SCRIPT TAG -->
+            <script src="https://spintax-backend.onrender.com/st_text_plugin.js" st-text-id="cosmos"></script>
         </div>
-    </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Platform</h4>
-                    <ul class="footer-links">
-                        <li><a href="#features">Core Features</a></li>
-                        <li><a href="#modules">Module Ecosystem</a></li>
-                        <li><a href="#pricing">Pricing</a></li>
-                        <li><a href="#deploy">Deploy Now</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Solutions</h4>
-                    <ul class="footer-links">
-                        <li><a href="#real-estate">Real Estate Agents</a></li>
-                        <li><a href="#developers">Property Developers</a></li>
-                        <li><a href="#investors">Investors</a></li>
-                        <li><a href="#enterprise">Enterprise</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul class="footer-links">
-                        <li><a href="#docs">Documentation</a></li>
-                        <li><a href="#api">API Reference</a></li>
-                        <li><a href="#tutorials">Tutorials</a></li>
-                        <li><a href="#support">Support</a></li>
-                    </ul>
-                </div>
-                
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul class="footer-links">
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                        <li><a href="#press">Press Kit</a></li>
-                    </ul>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <div class="feature-title">60-Second Deployment</div>
+                <div class="feature-description">
+                    Deploy production-ready blockchains instantly with automated infrastructure setup
                 </div>
             </div>
             
-            <div class="footer-bottom">
-                <p>&copy; 2025 Escrow Smart Chain. All rights reserved. The blockchain built for trust.</p>
+            <div class="feature">
+                <div class="feature-icon">🏠</div>
+                <div class="feature-title">Real Estate Focused</div>
+                <div class="feature-description">
+                    Built specifically for property tokenization, escrow, and real estate transactions
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <div class="feature-title">Smart Escrow Technology</div>
+                <div class="feature-description">
+                    Revolutionary smart contract escrow with automated fund releases and dispute resolution
+                </div>
+            </div>
+            
+            <div class="feature">
+                <div class="feature-icon">🌍</div>
+                <div class="feature-title">Global Compliance</div>
+                <div class="feature-description">
+                    Built-in regulatory compliance for multiple jurisdictions with automated KYC/AML
+                </div>
             </div>
         </div>
-    </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Header scroll effect
-        window.addEventListener('scroll', () => {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
-            } else {
-                header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = 'none';
-            }
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe elements for animation
-        document.querySelectorAll('.feature-card, .module-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Module card hover effects
-        document.querySelectorAll('.module-card').forEach(card => {
-            card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-8px) scale(1.02)';
-            });
-            
-            card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Dynamic typing effect for hero title (optional)
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            
-            type();
-        }
-
-        // Initialize typing effect on page load
-        window.addEventListener('load', () => {
-            const heroTitle = document.querySelector('.hero-title');
-            const originalText = heroTitle.textContent;
-            typeWriter(heroTitle, originalText, 80);
-        });
-    </script>
+        <div class="footer">
+            <div class="footer-links">
+                <a href="/">Home</a>
+                <a href="/modules">Modules</a>
+                <a href="/pricing">Pricing</a>
+                <a href="/docs">Documentation</a>
+                <a href="/contact">Contact</a>
+            </div>
+            <div class="copyright">
+                © 2025 Escrow Smart Chain. The blockchain built for trust.
+            </div>
+        </div>
+    </div>
 </body>
 </html>
