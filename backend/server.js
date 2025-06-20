@@ -62,8 +62,9 @@ async function initializeDatabase() {
             CREATE TABLE IF NOT EXISTS deployments (
                 id TEXT PRIMARY KEY,
                 chain_name TEXT NOT NULL,
-                vps_host TEXT NOT NULL,
+                vps_ip TEXT NOT NULL,
                 vps_username TEXT NOT NULL,
+                vps_password TEXT,
                 status TEXT NOT NULL DEFAULT 'PENDING',
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 updated_at DATETIME DEFAULT CURRENT_TIMESTAMP,
