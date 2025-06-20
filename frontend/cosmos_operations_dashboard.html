@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmos Blockchain Operations Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #4facfe, #00f2fe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #a0a0a0;
+            font-size: 1.1em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #333;
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            color: #a0a0a0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-tab:hover {
+            color: #4facfe;
+        }
+
+        .nav-tab.active {
+            color: #4facfe;
+            border-bottom: 2px solid #4facfe;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h3 {
+            color: #4facfe;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .command-group {
+            margin-bottom: 20px;
+        }
+
+        .command-group h4 {
+            color: #00f2fe;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .command {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .command-header {
+            background: rgba(79, 172, 254, 0.1);
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+
+        .command-title {
+            font-weight: 600;
+            color: #ffffff;
+            flex: 1;
+        }
+
+        .copy-btn {
+            background: #4facfe;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: #00f2fe;
+            transform: translateY(-1px);
+        }
+
+        .command-code {
+            background: #0a0a0a;
+            padding: 15px;
+            color: #00ff88;
+            font-family: 'Monaco', 'Menlo', monospace;
+            overflow-x: auto;
+            font-size: 0.9em;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .command-description {
+            padding: 12px 15px;
+            color: #a0a0a0;
+            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .warning {
+            background: rgba(255, 193, 7, 0.1);
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            color: #ffc107;
+        }
+
+        .danger {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            color: #dc3545;
+        }
+
+        .info {
+            background: rgba(13, 202, 240, 0.1);
+            border: 1px solid rgba(13, 202, 240, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            color: #0dcaf0;
+        }
+
+        .search-box {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            color: white;
+            font-size: 1em;
+        }
+
+        .search-input::placeholder {
+            color: #a0a0a0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Cosmos Blockchain Operations</h1>
+            <p>Complete command reference for managing your deployed blockchain</p>
+        </div>
+
+        <div class="search-box">
+            <input type="text" class="search-input" placeholder="Search commands..." id="searchInput">
+        </div>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('basics')">Chain Basics</button>
+            <button class="nav-tab" onclick="showTab('validator')">Validator</button>
+            <button class="nav-tab" onclick="showTab('accounts')">Accounts</button>
+            <button class="nav-tab" onclick="showTab('development')">Development</button>
+            <button class="nav-tab" onclick="showTab('monitoring')">Monitoring</button>
+            <button class="nav-tab" onclick="showTab('ibc')">IBC & Network</button>
+            <button class="nav-tab" onclick="showTab('security')">Security</button>
+            <button class="nav-tab" onclick="showTab('maintenance')">Maintenance</button>
+        </div>
+
+        <!-- CHAIN BASICS TAB -->
+        <div id="basics" class="tab-content active">
+            <div class="section">
+                <h3>🔧 Chain Control</h3>
+                
+                <div class="command-group">
+                    <h4>Start/Stop Operations</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Start Your Blockchain</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">cd ~/workspace/&lt;chain-id&gt; && ./run.sh</div>
+                        <div class="command-description">Starts your blockchain in the background</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Stop Your Blockchain</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">kill $(cat ~/workspace/&lt;chain-id&gt;/spaceship.pid)</div>
+                        <div class="command-description">Safely stops your blockchain</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Restart Blockchain</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">kill $(cat ~/workspace/&lt;chain-id&gt;/spaceship.pid) && sleep 5 && cd ~/workspace/&lt;chain-id&gt; && ./run.sh</div>
+                        <div class="command-description">Stops and restarts your blockchain</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Status & Health Checks</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Chain Status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d status</div>
+                        <div class="command-description">Shows current blockchain status and sync info</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check If Chain Is Running</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">ps aux | grep &lt;chain-name&gt;d</div>
+                        <div class="command-description">Shows if blockchain process is active</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">View Latest Blocks</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl -s http://localhost:26657/status | jq .result.sync_info</div>
+                        <div class="command-description">Shows sync status and latest block info</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Node Health</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl http://localhost:26657/health</div>
+                        <div class="command-description">Quick health check endpoint</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Logs & Debugging</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">View Live Logs</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">tail -f ~/workspace/&lt;chain-id&gt;/log/chain.log</div>
+                        <div class="command-description">Watch blockchain logs in real-time</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Search Error Logs</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">grep -i "error\|fail\|panic" ~/workspace/&lt;chain-id&gt;/log/chain.log</div>
+                        <div class="command-description">Find errors in blockchain logs</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">View Last 100 Log Lines</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">tail -n 100 ~/workspace/&lt;chain-id&gt;/log/chain.log</div>
+                        <div class="command-description">Shows recent blockchain activity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- VALIDATOR TAB -->
+        <div id="validator" class="tab-content">
+            <div class="section">
+                <h3>⚡ Validator Operations</h3>
+                
+                <div class="command-group">
+                    <h4>Validator Setup</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Create Validator</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx staking create-validator \
+  --amount=1000000stake \
+  --pubkey=$(&lt;chain-name&gt;d tendermint show-validator) \
+  --moniker="MyValidator" \
+  --chain-id=&lt;chain-id&gt; \
+  --commission-rate="0.10" \
+  --commission-max-rate="0.20" \
+  --commission-max-change-rate="0.01" \
+  --min-self-delegation="1" \
+  --gas="auto" \
+  --gas-prices="0.025stake" \
+  --from=&lt;key-name&gt;</div>
+                        <div class="command-description">Creates a new validator on your blockchain</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Validator Status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query staking validator $(&lt;chain-name&gt;d keys show &lt;key-name&gt; --bech val -a)</div>
+                        <div class="command-description">Shows your validator's current status</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Show Validator Key</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tendermint show-validator</div>
+                        <div class="command-description">Displays your validator's public key</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Delegation Management</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Delegate Tokens</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx staking delegate &lt;validator-address&gt; 1000000stake --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Delegate tokens to a validator</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Delegations</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query staking delegations $(&lt;chain-name&gt;d keys show &lt;key-name&gt; -a)</div>
+                        <div class="command-description">Shows all delegations for an account</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Undelegate Tokens</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx staking unbond &lt;validator-address&gt; 1000000stake --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Undelegate tokens from a validator</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Redelegate Tokens</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx staking redelegate &lt;src-validator&gt; &lt;dst-validator&gt; 1000000stake --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Move delegation from one validator to another</div>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    ⚠️ <strong>Warning:</strong> Validator operations affect consensus. Test commands on testnet first!
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCOUNTS TAB -->
+        <div id="accounts" class="tab-content">
+            <div class="section">
+                <h3>👤 Account & Wallet Management</h3>
+                
+                <div class="command-group">
+                    <h4>Key Management</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Create New Account</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys add &lt;account-name&gt;</div>
+                        <div class="command-description">Creates a new account with mnemonic phrase</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">List All Accounts</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys list</div>
+                        <div class="command-description">Shows all accounts in your keyring</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Show Account Address</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys show &lt;account-name&gt; -a</div>
+                        <div class="command-description">Displays the address of an account</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Recover Account from Mnemonic</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys add &lt;account-name&gt; --recover</div>
+                        <div class="command-description">Recovers account using seed phrase</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Export Private Key</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys export &lt;account-name&gt;</div>
+                        <div class="command-description">Exports encrypted private key</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Delete Account</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys delete &lt;account-name&gt;</div>
+                        <div class="command-description">Permanently deletes an account</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Balance & Transactions</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Account Balance</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query bank balances $(&lt;chain-name&gt;d keys show &lt;account-name&gt; -a)</div>
+                        <div class="command-description">Shows all token balances for an account</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Send Tokens</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx bank send &lt;from-address&gt; &lt;to-address&gt; 1000000stake --chain-id &lt;chain-id&gt; --from &lt;key-name&gt;</div>
+                        <div class="command-description">Transfers tokens between accounts</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Transaction</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query tx &lt;transaction-hash&gt;</div>
+                        <div class="command-description">Gets details of a specific transaction</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Get Account Info</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query auth account $(&lt;chain-name&gt;d keys show &lt;account-name&gt; -a)</div>
+                        <div class="command-description">Shows account details including sequence number</div>
+                    </div>
+                </div>
+
+                <div class="danger">
+                    🛑 <strong>Danger:</strong> Never share private keys or mnemonics. Store them securely offline!
+                </div>
+            </div>
+        </div>
+
+        <!-- DEVELOPMENT TAB -->
+        <div id="development" class="tab-content">
+            <div class="section">
+                <h3>💻 Development & Smart Contracts</h3>
+                
+                <div class="command-group">
+                    <h4>Module Development</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add New Module</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">cd ~/workspace/&lt;chain-id&gt; && ignite scaffold module &lt;module-name&gt;</div>
+                        <div class="command-description">Creates a new custom module</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add Message Type</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">ignite scaffold message &lt;message-name&gt; &lt;field1&gt; &lt;field2&gt; --module &lt;module-name&gt;</div>
+                        <div class="command-description">Adds a new message type to a module</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add Query</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">ignite scaffold query &lt;query-name&gt; &lt;field1&gt; &lt;field2&gt; --module &lt;module-name&gt;</div>
+                        <div class="command-description">Creates a new query endpoint</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add Data Type</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">ignite scaffold type &lt;type-name&gt; &lt;field1&gt; &lt;field2&gt; --module &lt;module-name&gt;</div>
+                        <div class="command-description">Adds a new data structure</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Smart Contracts (CosmWasm)</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Store Contract Code</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx wasm store &lt;contract.wasm&gt; --from &lt;key-name&gt; --chain-id &lt;chain-id&gt; --gas auto --gas-adjustment 1.3</div>
+                        <div class="command-description">Uploads smart contract code to blockchain</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Instantiate Contract</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx wasm instantiate &lt;code-id&gt; '{"count":0}' --label "my contract" --from &lt;key-name&gt; --chain-id &lt;chain-id&gt; --gas auto</div>
+                        <div class="command-description">Creates a new instance of stored contract</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Execute Contract</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx wasm execute &lt;contract-address&gt; '{"increment":{}}' --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Calls a contract function</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Query Contract State</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query wasm contract-state smart &lt;contract-address&gt; '{"get_count":{}}'</div>
+                        <div class="command-description">Queries contract state</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Blockchain Queries</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Query Block by Height</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query block &lt;height&gt;</div>
+                        <div class="command-description">Gets block information at specific height</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">List All Validators</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query staking validators</div>
+                        <div class="command-description">Shows all validators on the network</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Governance Proposals</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query gov proposals</div>
+                        <div class="command-description">Lists all governance proposals</div>
+                    </div>
+                </div>
+
+                <div class="info">
+                    💡 <strong>Tip:</strong> Replace &lt;placeholders&gt; with your actual values (chain-name, account-name, etc.)
+                </div>
+            </div>
+        </div>
+
+        <!-- MONITORING TAB -->
+        <div id="monitoring" class="tab-content">
+            <div class="section">
+                <h3>📊 Monitoring & Performance</h3>
+                
+                <div class="command-group">
+                    <h4>System Resources</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Disk Usage</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">df -h ~/workspace/&lt;chain-id&gt;</div>
+                        <div class="command-description">Shows disk space usage for blockchain data</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Monitor CPU & Memory</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">top -p $(pgrep &lt;chain-name&gt;d)</div>
+                        <div class="command-description">Real-time resource usage of blockchain process</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check System Load</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">uptime && free -h</div>
+                        <div class="command-description">Shows system load and available memory</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Monitor Network Connections</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">netstat -an | grep :26656</div>
+                        <div class="command-description">Shows P2P network connections</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Blockchain Metrics</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Get Node Info</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl -s http://localhost:26657/status | jq</div>
+                        <div class="command-description">Comprehensive node status information</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Peer Count</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl -s http://localhost:26657/net_info | jq .result.n_peers</div>
+                        <div class="command-description">Number of connected peers</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Monitor Block Production</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">watch -n 5 'curl -s http://localhost:26657/status | jq .result.sync_info.latest_block_height'</div>
+                        <div class="command-description">Watch block height increase in real-time</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Validator Voting Power</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl -s http://localhost:26657/validators | jq '.result.validators[] | {address: .address, voting_power: .voting_power}'</div>
+                        <div class="command-description">Shows voting power of all validators</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Performance Analysis</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Transaction Throughput</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl -s http://localhost:26657/block | jq '.result.block.data.txs | length'</div>
+                        <div class="command-description">Number of transactions in latest block</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Average Block Time</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">echo "Check the time difference between recent blocks in the logs"</div>
+                        <div class="command-description">Analyze recent block timestamps for performance</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Database Size</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">du -sh ~/workspace/&lt;chain-id&gt;/home/data</div>
+                        <div class="command-description">Size of blockchain database</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IBC & NETWORK TAB -->
+        <div id="ibc" class="tab-content">
+            <div class="section">
+                <h3>🌐 IBC & Network Operations</h3>
+                
+                <div class="command-group">
+                    <h4>IBC Setup</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Create IBC Client</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx ibc client create &lt;client-state&gt; &lt;consensus-state&gt; --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Creates IBC light client for another chain</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Open IBC Channel</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx ibc channel open-init transfer &lt;port-id&gt; &lt;channel-id&gt; --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Initiates IBC channel opening</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">List IBC Channels</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d query ibc channel channels</div>
+                        <div class="command-description">Shows all IBC channels</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">IBC Transfer</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tx ibc-transfer transfer &lt;src-port&gt; &lt;src-channel&gt; &lt;receiver&gt; 1000token --from &lt;key-name&gt; --chain-id &lt;chain-id&gt;</div>
+                        <div class="command-description">Send tokens across IBC</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Relayer Operations</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Start Relayer</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">rly start &lt;path-name&gt;</div>
+                        <div class="command-description">Starts IBC relayer for specified path</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add Chain to Relayer</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">rly chains add &lt;chain-id&gt;</div>
+                        <div class="command-description">Configures relayer for new chain</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Create Relayer Path</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">rly paths new &lt;chain-a&gt; &lt;chain-b&gt; &lt;path-name&gt;</div>
+                        <div class="command-description">Creates new IBC path between chains</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Network Configuration</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Add Persistent Peers</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/persistent_peers = ""/persistent_peers = "&lt;node-id&gt;@&lt;ip&gt;:26656"/' ~/workspace/&lt;chain-id&gt;/home/config/config.toml</div>
+                        <div class="command-description">Adds persistent peer connections</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Set External Address</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/external_address = ""/external_address = "&lt;your-ip&gt;:26656"/' ~/workspace/&lt;chain-id&gt;/home/config/config.toml</div>
+                        <div class="command-description">Sets external IP for peer discovery</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Show Node ID</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tendermint show-node-id</div>
+                        <div class="command-description">Displays your node's ID for peer connections</div>
+                    </div>
+                </div>
+
+                <div class="info">
+                    🌐 <strong>IBC Info:</strong> Inter-Blockchain Communication enables your chain to connect with other Cosmos chains
+                </div>
+            </div>
+        </div>
+
+        <!-- SECURITY TAB -->
+        <div id="security" class="tab-content">
+            <div class="section">
+                <h3>🔒 Security & Access Control</h3>
+                
+                <div class="command-group">
+                    <h4>Firewall Configuration</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Setup Basic Firewall</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sudo ufw enable && sudo ufw allow 22 && sudo ufw allow 26656 && sudo ufw allow 26657</div>
+                        <div class="command-description">Enables firewall with essential ports</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Firewall Status</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sudo ufw status</div>
+                        <div class="command-description">Shows current firewall rules</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Allow RPC Access (Careful!)</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sudo ufw allow from &lt;trusted-ip&gt; to any port 26657</div>
+                        <div class="command-description">Allows RPC access from specific IP only</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Key Security</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Backup Validator Key</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">cp ~/workspace/&lt;chain-id&gt;/home/config/priv_validator_key.json ~/validator_key_backup.json</div>
+                        <div class="command-description">Creates backup of validator private key</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Secure Key Permissions</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">chmod 600 ~/workspace/&lt;chain-id&gt;/home/config/priv_validator_key.json</div>
+                        <div class="command-description">Sets secure permissions on validator key</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Create Key Backup</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d keys export &lt;key-name&gt; > keyfile_backup.txt</div>
+                        <div class="command-description">Exports encrypted account key</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Access Control</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Disable External RPC</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/laddr = "tcp:\/\/0.0.0.0:26657"/laddr = "tcp:\/\/127.0.0.1:26657"/' ~/workspace/&lt;chain-id&gt;/home/config/config.toml</div>
+                        <div class="command-description">Restricts RPC to localhost only</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Disable Unsafe RPC Methods</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/unsafe = true/unsafe = false/' ~/workspace/&lt;chain-id&gt;/home/config/config.toml</div>
+                        <div class="command-description">Disables potentially dangerous RPC endpoints</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Set CORS Policy</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/cors_allowed_origins = \[\]/cors_allowed_origins = \["https:\/\/yourdomain.com"\]/' ~/workspace/&lt;chain-id&gt;/home/config/config.toml</div>
+                        <div class="command-description">Restricts web access to specific domains</div>
+                    </div>
+                </div>
+
+                <div class="danger">
+                    🔥 <strong>Critical:</strong> Never expose your validator key or share it online. Always backup keys securely!
+                </div>
+            </div>
+        </div>
+
+        <!-- MAINTENANCE TAB -->
+        <div id="maintenance" class="tab-content">
+            <div class="section">
+                <h3>🔧 Maintenance & Upgrades</h3>
+                
+                <div class="command-group">
+                    <h4>Backup Operations</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Full Data Backup</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">tar -czf chain-backup-$(date +%Y%m%d).tar.gz ~/workspace/&lt;chain-id&gt;/home</div>
+                        <div class="command-description">Creates complete backup of blockchain data</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Export Genesis</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d export > genesis_export.json</div>
+                        <div class="command-description">Exports current chain state to genesis file</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Backup Keys Only</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">cp -r ~/workspace/&lt;chain-id&gt;/home/keyring-file ~/keyring-backup-$(date +%Y%m%d)</div>
+                        <div class="command-description">Backs up only the keyring data</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Database Maintenance</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Reset Chain Data</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d tendermint unsafe-reset-all --home ~/workspace/&lt;chain-id&gt;/home</div>
+                        <div class="command-description">Completely resets blockchain data (DANGEROUS!)</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Compact Database</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d compact-db --home ~/workspace/&lt;chain-id&gt;/home</div>
+                        <div class="command-description">Optimizes database storage</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Prune Old Blocks</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sed -i 's/pruning = "default"/pruning = "custom"/' ~/workspace/&lt;chain-id&gt;/home/config/app.toml && sed -i 's/pruning-keep-recent = "0"/pruning-keep-recent = "100"/' ~/workspace/&lt;chain-id&gt;/home/config/app.toml</div>
+                        <div class="command-description">Configures block pruning to save space</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>Software Updates</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Update Ignite CLI</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">curl https://get.ignite.com/cli@latest! | bash</div>
+                        <div class="command-description">Updates Ignite CLI to latest version</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Rebuild Chain Binary</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">cd ~/workspace/&lt;chain-id&gt; && ignite chain build</div>
+                        <div class="command-description">Rebuilds blockchain binary with latest code</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check Version</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">&lt;chain-name&gt;d version</div>
+                        <div class="command-description">Shows current blockchain software version</div>
+                    </div>
+                </div>
+
+                <div class="command-group">
+                    <h4>System Maintenance</h4>
+                    
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Clean Log Files</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">find ~/workspace/&lt;chain-id&gt;/log -name "*.log" -mtime +7 -delete</div>
+                        <div class="command-description">Removes log files older than 7 days</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Update System Packages</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">sudo apt update && sudo apt upgrade -y</div>
+                        <div class="command-description">Updates VPS system packages</div>
+                    </div>
+
+                    <div class="command">
+                        <div class="command-header">
+                            <span class="command-title">Check System Resources</span>
+                            <button class="copy-btn" onclick="copyCommand(this)">Copy</button>
+                        </div>
+                        <div class="command-code">df -h && free -h && uptime</div>
+                        <div class="command-description">Shows disk, memory, and system status</div>
+                    </div>
+                </div>
+
+                <div class="warning">
+                    ⚠️ <strong>Warning:</strong> Always backup before performing maintenance operations!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+            
+            // Remove active class from all tabs
+            const tabs = document.querySelectorAll('.nav-tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+
+        function copyCommand(button) {
+            const command = button.parentNode.nextElementSibling;
+            const text = command.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Copied!';
+                button.style.background = '#00ff88';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.background = '#4facfe';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+                button.textContent = 'Error';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const commands = document.querySelectorAll('.command');
+            
+            commands.forEach(command => {
+                const title = command.querySelector('.command-title').textContent.toLowerCase();
+                const code = command.querySelector('.command-code').textContent.toLowerCase();
+                const description = command.querySelector('.command-description').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || code.includes(searchTerm) || description.includes(searchTerm)) {
+                    command.style.display = 'block';
+                    command.style.border = searchTerm ? '2px solid #4facfe' : '1px solid rgba(255, 255, 255, 0.1)';
+                } else {
+                    command.style.display = searchTerm ? 'none' : 'block';
+                    command.style.border = '1px solid rgba(255, 255, 255, 0.1)';
+                }
+            });
+            
+            // Show all tabs if searching
+            if (searchTerm) {
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.add('active');
+                });
+            } else {
+                // Reset to only showing active tab
+                document.querySelectorAll('.tab-content').forEach(tab => {
+                    tab.classList.remove('active');
+                });
+                document.querySelector('.nav-tab.active').click();
+            }
+        });
+
+        // Add some cosmic particle effects
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = Math.random() * 3 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.background = `hsl(${Math.random() * 60 + 180}, 100%, 70%)`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = '-10px';
+            particle.style.opacity = Math.random() * 0.5 + 0.3;
+            
+            document.body.appendChild(particle);
+            
+            const duration = Math.random() * 3000 + 2000;
+            particle.animate([
+                { transform: 'translateY(0px) rotate(0deg)', opacity: particle.style.opacity },
+                { transform: `translateY(${window.innerHeight + 10}px) rotate(360deg)`, opacity: 0 }
+            ], {
+                duration: duration,
+                easing: 'linear'
+            }).onfinish = () => particle.remove();
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 300);
+    </script>
+</body>
+</html>
