@@ -20,6 +20,7 @@ app.use(cors({
     origin: [
         'https://cosmoslaunchpad.com',
         'https://www.cosmoslaunchpad.com',
+        'https://escrow.sc',
         'https://cosmos-launchpad.netlify.app',
         'http://localhost:3000',
         'http://localhost:8080'
