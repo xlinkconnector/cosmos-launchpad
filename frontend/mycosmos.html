@@ -59,7 +59,7 @@
             50% { opacity: 1; }
         }
 
-        /* Floating particles */
+        /* Enhanced Floating particles */
         .particles {
             position: fixed;
             top: 0;
@@ -72,17 +72,74 @@
 
         .particle {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 6px;
+            height: 6px;
             background: linear-gradient(45deg, #00f5ff, #ff00ff);
             border-radius: 50%;
-            animation: float 20s infinite linear;
-            opacity: 0.6;
+            animation: float-enhanced 25s infinite linear;
+            opacity: 0.8;
+            box-shadow: 0 0 10px currentColor;
         }
 
-        @keyframes float {
+        .particle.large {
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #00f5ff, #ff00ff, #00ff80);
+            animation-duration: 30s;
+        }
+
+        .particle.small {
+            width: 3px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff00ff, #00f5ff);
+            animation-duration: 18s;
+        }
+
+        @keyframes float-enhanced {
             0% {
-                transform: translateY(100vh) translateX(0px);
+                transform: translateY(100vh) translateX(0px) rotate(0deg);
+                opacity: 0;
+                filter: hue-rotate(0deg);
+            }
+            10% {
+                opacity: 0.8;
+            }
+            50% {
+                filter: hue-rotate(180deg);
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100px) translateX(80px) rotate(360deg);
+                opacity: 0;
+                filter: hue-rotate(360deg);
+            }
+        }
+
+        /* Cosmic Dust */
+        .cosmic-dust {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .dust-particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: dust-float 40s infinite linear;
+        }
+
+        @keyframes dust-float {
+            0% {
+                transform: translateY(100vh) translateX(-50px);
                 opacity: 0;
             }
             10% {
@@ -92,7 +149,7 @@
                 opacity: 0.6;
             }
             100% {
-                transform: translateY(-100px) translateX(50px);
+                transform: translateY(-50px) translateX(50px);
                 opacity: 0;
             }
         }
@@ -259,7 +316,7 @@
             transform: scale(0.98);
         }
 
-        /* Floating Features - Fixed positioning to prevent overlap */
+        /* Enhanced Floating Features with More Magic */
         .floating-features {
             position: absolute;
             top: 0;
@@ -267,64 +324,174 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: -1;
+            z-index: 1;
+            overflow: hidden;
         }
 
         .floating-feature {
             position: absolute;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            padding: 1rem;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.15), rgba(255, 0, 255, 0.15));
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 20px;
+            padding: 1.2rem;
             font-size: 0.9rem;
             color: #fff;
-            animation: float-gentle 6s ease-in-out infinite;
-            max-width: 200px;
+            animation: float-cosmic 8s ease-in-out infinite;
+            max-width: 220px;
             text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 245, 255, 0.1);
+            transform-style: preserve-3d;
         }
 
-        /* Specific positioning to prevent overlap */
+        /* Enhanced positioning to prevent overlap with more space */
         .floating-feature:nth-child(1) {
-            top: 15%;
-            left: 10%;
+            top: 10%;
+            left: 5%;
             animation-delay: 0s;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(0, 255, 127, 0.15));
         }
 
         .floating-feature:nth-child(2) {
-            top: 25%;
-            right: 15%;
+            top: 15%;
+            right: 8%;
             animation-delay: 2s;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(255, 105, 180, 0.15));
         }
 
         .floating-feature:nth-child(3) {
-            bottom: 30%;
-            left: 8%;
+            bottom: 35%;
+            left: 3%;
             animation-delay: 4s;
+            background: linear-gradient(135deg, rgba(0, 255, 127, 0.2), rgba(127, 255, 212, 0.15));
         }
 
         .floating-feature:nth-child(4) {
-            bottom: 20%;
-            right: 12%;
+            bottom: 25%;
+            right: 10%;
             animation-delay: 1s;
+            background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.15));
         }
 
         .floating-feature:nth-child(5) {
-            top: 40%;
-            left: 5%;
+            top: 45%;
+            left: 2%;
             animation-delay: 3s;
+            background: linear-gradient(135deg, rgba(127, 255, 212, 0.2), rgba(64, 224, 208, 0.15));
         }
 
         .floating-feature:nth-child(6) {
-            top: 50%;
-            right: 8%;
+            top: 55%;
+            right: 5%;
             animation-delay: 5s;
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.2), rgba(255, 69, 0, 0.15));
         }
 
-        @keyframes float-gentle {
-            0%, 100% { transform: translateY(0px) translateX(0px); }
-            33% { transform: translateY(-10px) translateX(5px); }
-            66% { transform: translateY(5px) translateX(-5px); }
+        @keyframes float-cosmic {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) rotateX(0deg) rotateY(0deg); 
+                opacity: 0.8;
+                filter: hue-rotate(0deg);
+            }
+            25% { 
+                transform: translateY(-15px) translateX(8px) rotateX(5deg) rotateY(2deg); 
+                opacity: 1;
+                filter: hue-rotate(90deg);
+            }
+            50% { 
+                transform: translateY(-8px) translateX(-5px) rotateX(-3deg) rotateY(-1deg); 
+                opacity: 0.9;
+                filter: hue-rotate(180deg);
+            }
+            75% { 
+                transform: translateY(12px) translateX(-8px) rotateX(2deg) rotateY(3deg); 
+                opacity: 1;
+                filter: hue-rotate(270deg);
+            }
+        }
+
+        /* Additional Magic Orbs */
+        .magic-orbs {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .magic-orb {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle, #00f5ff, #ff00ff);
+            border-radius: 50%;
+            animation: orb-dance 12s infinite linear;
+            opacity: 0.7;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        @keyframes orb-dance {
+            0% {
+                transform: translate(0, 100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+                transform: scale(1);
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translate(50px, -100px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Cosmic Energy Waves */
+        .energy-waves {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            margin: -150px 0 0 -150px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .energy-wave {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 245, 255, 0.1);
+            border-radius: 50%;
+            animation: wave-pulse 4s ease-in-out infinite;
+        }
+
+        .energy-wave:nth-child(2) {
+            animation-delay: 1s;
+            border-color: rgba(255, 0, 255, 0.1);
+        }
+
+        .energy-wave:nth-child(3) {
+            animation-delay: 2s;
+            border-color: rgba(0, 255, 127, 0.1);
+        }
+
+        @keyframes wave-pulse {
+            0% {
+                transform: scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(2);
+                opacity: 0;
+            }
         }
 
         /* Sections */
@@ -854,6 +1021,7 @@
     <div class="cosmic-bg"></div>
     <div class="stars" id="stars"></div>
     <div class="particles" id="particles"></div>
+    <div class="cosmic-dust" id="cosmicDust"></div>
 
     <!-- Header -->
     <header>
@@ -878,6 +1046,14 @@
                 <div class="floating-feature">⚡ Auto-Scaling Infrastructure</div>
                 <div class="floating-feature">📊 Advanced Analytics</div>
                 <div class="floating-feature">🛠️ Developer SDK</div>
+            </div>
+            
+            <div class="magic-orbs" id="magicOrbs"></div>
+            
+            <div class="energy-waves">
+                <div class="energy-wave"></div>
+                <div class="energy-wave"></div>
+                <div class="energy-wave"></div>
             </div>
             
             <div class="hero-logo">🌌</div>
@@ -1545,18 +1721,62 @@
             }
         }
 
-        // Create floating particles
+        // Create enhanced particles with different sizes and colors
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
-            const numParticles = 20;
+            const numParticles = 40;
             
             for (let i = 0; i < numParticles; i++) {
                 const particle = document.createElement('div');
-                particle.className = 'particle';
+                const particleType = Math.random();
+                
+                if (particleType < 0.3) {
+                    particle.className = 'particle large';
+                } else if (particleType < 0.6) {
+                    particle.className = 'particle small';
+                } else {
+                    particle.className = 'particle';
+                }
+                
                 particle.style.left = Math.random() * 100 + '%';
-                particle.style.animationDelay = Math.random() * 20 + 's';
-                particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+                particle.style.animationDelay = Math.random() * 25 + 's';
+                particle.style.animationDuration = (18 + Math.random() * 12) + 's';
                 particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Create cosmic dust
+        function createCosmicDust() {
+            const dustContainer = document.getElementById('cosmicDust');
+            const numDust = 60;
+            
+            for (let i = 0; i < numDust; i++) {
+                const dust = document.createElement('div');
+                dust.className = 'dust-particle';
+                dust.style.left = Math.random() * 100 + '%';
+                dust.style.animationDelay = Math.random() * 40 + 's';
+                dust.style.animationDuration = (35 + Math.random() * 10) + 's';
+                dustContainer.appendChild(dust);
+            }
+        }
+
+        // Create magic orbs
+        function createMagicOrbs() {
+            const orbsContainer = document.getElementById('magicOrbs');
+            const numOrbs = 15;
+            
+            for (let i = 0; i < numOrbs; i++) {
+                const orb = document.createElement('div');
+                orb.className = 'magic-orb';
+                orb.style.left = Math.random() * 100 + '%';
+                orb.style.animationDelay = Math.random() * 12 + 's';
+                orb.style.animationDuration = (10 + Math.random() * 4) + 's';
+                
+                // Random colors for orbs
+                const colors = ['#00f5ff', '#ff00ff', '#00ff80', '#ff8000', '#8000ff'];
+                orb.style.background = `radial-gradient(circle, ${colors[Math.floor(Math.random() * colors.length)]}, transparent)`;
+                
+                orbsContainer.appendChild(orb);
             }
         }
 
@@ -1649,7 +1869,26 @@
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             createParticles();
+            createCosmicDust();
+            createMagicOrbs();
             animateOnScroll();
+            
+            // Add extra magic effects
+            setTimeout(() => {
+                // Create additional particle bursts
+                setInterval(() => {
+                    const burstContainer = document.getElementById('particles');
+                    for (let i = 0; i < 5; i++) {
+                        const burst = document.createElement('div');
+                        burst.className = 'particle';
+                        burst.style.left = Math.random() * 100 + '%';
+                        burst.style.animationDuration = '8s';
+                        burstContainer.appendChild(burst);
+                        
+                        setTimeout(() => burst.remove(), 8000);
+                    }
+                }, 15000);
+            }, 3000);
         });
 
         // Update progress bar and animations on scroll
