@@ -6,6 +6,12 @@
     <title>🌌 Ultimate Cosmos Platform - Download the Future of Blockchain</title>
     <meta name="description" content="Download the world's most advanced blockchain management system with AI consciousness, quantum computing, and interdimensional capabilities.">
     
+    <!-- Reset all default spacing -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+    </style>
+    
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -39,6 +45,12 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+
         body {
             font-family: 'Rajdhani', sans-serif;
             background: var(--dark-bg);
@@ -54,7 +66,7 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -2;
+            z-index: -3;
         }
 
         .cosmic-background {
@@ -68,7 +80,7 @@
                 radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
                 radial-gradient(circle at 40% 80%, rgba(120, 219, 255, 0.3) 0%, transparent 50%),
                 linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1a1a2e 75%, #0f0f23 100%);
-            z-index: -1;
+            z-index: -2;
             animation: cosmic-drift 20s ease-in-out infinite;
         }
 
@@ -79,26 +91,26 @@
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             position: relative;
-            padding: 0 20px;
+            padding: 60px 20px;
         }
 
         .hero-logo {
-            width: 200px;
-            height: 200px;
-            margin-bottom: 30px;
+            width: 150px;
+            height: 150px;
+            margin-bottom: 20px;
             background: var(--primary-gradient);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 80px;
+            font-size: 60px;
             animation: logo-pulse 3s ease-in-out infinite;
             box-shadow: 0 0 50px rgba(102, 126, 234, 0.5);
         }
@@ -129,7 +141,7 @@
         .hero-subtitle {
             font-size: clamp(1.2rem, 3vw, 2rem);
             color: var(--text-secondary);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             max-width: 800px;
             line-height: 1.4;
         }
@@ -137,7 +149,7 @@
         .hero-description {
             font-size: clamp(1rem, 2vw, 1.3rem);
             color: var(--text-secondary);
-            margin-bottom: 50px;
+            margin-bottom: 30px;
             max-width: 1000px;
             line-height: 1.6;
         }
@@ -371,7 +383,7 @@
             display: flex;
             justify-content: center;
             gap: 60px;
-            margin: 40px 0;
+            margin: 30px 0 20px 0;
             flex-wrap: wrap;
         }
 
@@ -870,6 +882,11 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .hero {
+                min-height: 70vh;
+                padding: 40px 20px;
+            }
+            
             .package-grid {
                 grid-template-columns: 1fr;
             }
@@ -903,12 +920,20 @@
         }
 
         @media (max-width: 480px) {
+            .hero {
+                min-height: 60vh;
+                padding: 30px 15px;
+            }
+            
             .section {
                 padding: 60px 0;
             }
             
-            .hero {
-                padding: 40px 20px;
+            .hero-logo {
+                width: 120px;
+                height: 120px;
+                font-size: 50px;
+                margin-bottom: 15px;
             }
             
             .package-card,
@@ -962,7 +987,7 @@
             width: 0%;
             height: 3px;
             background: var(--primary-gradient);
-            z-index: 9999;
+            z-index: 10000;
             transition: width 0.1s ease;
         }
 
