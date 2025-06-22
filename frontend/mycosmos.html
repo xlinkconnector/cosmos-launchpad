@@ -6,6 +6,14 @@
     <title>Ultimate Cosmos Platform - Revolutionary Blockchain Management</title>
     <meta name="description" content="Download the world's most advanced Cosmos SDK management platform. Enterprise-grade blockchain infrastructure with AI optimization, multi-chain support, and automated operations.">
     
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="64x64" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="128x128" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="256x256" href="/favicon.png">
+    
     <!-- Reset and base styles -->
     <style>
         * {
@@ -22,6 +30,24 @@
             color: #fff;
             background: #0a0a0a;
             overflow-x: hidden;
+        }
+
+        /* Logo styling */
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-text {
+            background: linear-gradient(45deg, #00f5ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         /* Cosmic Background */
@@ -188,8 +214,16 @@
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             font-size: 1.5rem;
             font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .logo-text {
             background: linear-gradient(45deg, #00f5ff, #ff00ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -230,22 +264,23 @@
         }
 
         .hero-logo {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, #00f5ff, #ff00ff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
             margin-bottom: 2rem;
             animation: cosmic-pulse 3s ease-in-out infinite;
             box-shadow: 0 0 50px rgba(0, 245, 255, 0.3);
+            border-radius: 50%;
         }
 
         @keyframes cosmic-pulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 50px rgba(0, 245, 255, 0.3); }
-            50% { transform: scale(1.05); box-shadow: 0 0 80px rgba(255, 0, 255, 0.4); }
+            0%, 100% { 
+                transform: scale(1); 
+                box-shadow: 0 0 50px rgba(0, 245, 255, 0.3);
+                filter: hue-rotate(0deg);
+            }
+            50% { 
+                transform: scale(1.05); 
+                box-shadow: 0 0 80px rgba(255, 0, 255, 0.4);
+                filter: hue-rotate(180deg);
+            }
         }
 
         .hero h1 {
@@ -1026,7 +1061,10 @@
     <!-- Header -->
     <header>
         <nav>
-            <div class="logo">🌌 COSMOS ULTIMATE</div>
+            <div class="logo">
+                <img src="/culogo.png" alt="Cosmos Ultimate Logo" style="width: 24px; height: 24px; border-radius: 50%;">
+                <span class="logo-text">COSMOS ULTIMATE</span>
+            </div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
                 <li><a href="#download">Download</a></li>
@@ -1056,7 +1094,9 @@
                 <div class="energy-wave"></div>
             </div>
             
-            <div class="hero-logo">🌌</div>
+            <div class="hero-logo">
+                <img src="/center-logo.png" alt="Cosmos Galaxy Logo" style="width: 120px; height: 120px; border-radius: 50%;">
+            </div>
             <h1>Ultimate Cosmos Platform</h1>
             <p class="hero-subtitle">
                 Revolutionary blockchain management platform with AI-powered optimization, 
